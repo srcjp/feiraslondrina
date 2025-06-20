@@ -8,6 +8,7 @@ import { PetMapComponent } from './pet/pet-map.component';
 import { PetFormComponent } from './pet/pet-form.component';
 import { PropertyMapComponent } from './property/property-map.component';
 import { PropertyFormComponent } from './property/property-form.component';
+import { PropertyDetailComponent } from './property/property-detail.component';
 import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
@@ -23,5 +24,6 @@ export const routes: Routes = [
   { path: 'property', component: PropertyMapComponent },
   { path: 'property/new', component: PropertyFormComponent, canActivate: [AuthGuard] },
   { path: 'property/:id/edit', component: PropertyFormComponent, canActivate: [AuthGuard] },
+  { path: 'property/:id', component: PropertyDetailComponent },
   { path: '**', redirectTo: 'login' }
 ];

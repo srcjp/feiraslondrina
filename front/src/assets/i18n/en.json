@@ -82,7 +82,8 @@
         "SUCCESS_MESSAGE": "Password reset successfully!"
       },
       "COMMON": {
-        "CLOSE": "Close"
+        "CLOSE": "Close",
+        "BACK": "Back"
       },
       "INTERNATIONALIZATION": {
         "PORTUGUESE": "Portuguese",
@@ -140,7 +141,8 @@
         "LAST_7_DAYS": "Last 7 days",
         "LAST_15_DAYS": "Last 15 days",
         "LAST_30_DAYS": "Last 30 days",
-        "ALL": "All"
+        "ALL": "All",
+        "MORE_DETAILS": "More details"
       },
       "FOOTER": {
         "BY": "by jpfurlan"
