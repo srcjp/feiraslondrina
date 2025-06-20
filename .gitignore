@@ -1,0 +1,27 @@
+# Node modules and build outputs
+front/node_modules/
+front/dist/
+
+# Angular build artifacts
+front/.angular/
+
+# Java build outputs
+back/target/
+
+# IDE files
+*.iml
+*.class
+.idea/
+
+# System files
+.DS_Store
+
+# Environment files
+*.env
+
+# Uploaded files
+back/uploads/
+
+# Logs
+*.log
+
