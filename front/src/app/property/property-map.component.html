@@ -1,0 +1,33 @@
+<div id="map">
+  <div class="controls">
+    <div class="filters-box">
+      <div class="filters-title">{{ 'PROPERTY.FILTERS_TITLE' | translate }}</div>
+      <div class="filters">
+        <mat-form-field appearance="fill" class="filter-field">
+          <mat-label>{{ 'PROPERTY.FILTER_STATUS' | translate }}</mat-label>
+          <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilters()">
+            <mat-option value="">{{ 'PROPERTY.ALL' | translate }}</mat-option>
+            <mat-option value="LOST">{{ 'PROPERTY.STATUS_LOST' | translate }}</mat-option>
+            <mat-option value="FOUND">{{ 'PROPERTY.STATUS_FOUND' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="filter-field">
+          <mat-label>{{ 'PROPERTY.FILTER_PERIOD' | translate }}</mat-label>
+          <mat-select [(ngModel)]="periodFilter" (selectionChange)="applyFilters()">
+            <mat-option value="">{{ 'PROPERTY.ALL' | translate }}</mat-option>
+            <mat-option value="7">{{ 'PROPERTY.LAST_7_DAYS' | translate }}</mat-option>
+            <mat-option value="15">{{ 'PROPERTY.LAST_15_DAYS' | translate }}</mat-option>
+            <mat-option value="30">{{ 'PROPERTY.LAST_30_DAYS' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="handleAddProperty()">{{ 'PROPERTY.ADD' | translate }}</button>
+      <button mat-raised-button color="accent" *ngIf="loggedIn" (click)="openMyProperties()">{{ 'PROPERTY.MY_RECORDS' | translate }}</button>
+    </div>
+  </div>
+</div>
+
