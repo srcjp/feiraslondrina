@@ -1,0 +1,18 @@
+<div class="popup-card">
+  <img *ngIf="property.images?.length" [src]="property.images?.[0]" class="popup-img" />
+  <div class="popup-info-card">
+    <div class="info-item" *ngIf="property.name"><span class="label">{{ 'PROPERTY.NAME' | translate }}:</span> {{ property.name }}</div>
+    <div class="info-item" *ngIf="property.date"><span class="label">{{ 'PROPERTY.DATE' | translate }}:</span> {{ property.date | date:'dd/MM/yyyy' }}</div>
+    <div class="info-item"><span class="label">{{ 'PROPERTY.STATUS' | translate }}:</span> {{ ('PROPERTY.STATUS_' + property.status) | translate }}</div>
+    <div class="info-item" *ngIf="property.breed"><span class="label">{{ 'PROPERTY.BREED' | translate }}:</span> {{ property.breed }}</div>
+    <div class="info-item" *ngIf="property.size"><span class="label">{{ 'PROPERTY.SIZE' | translate }}:</span> {{ property.size }}</div>
+    <div class="info-item" *ngIf="property.color"><span class="label">{{ 'PROPERTY.COLOR' | translate }}:</span> {{ property.color }}</div>
+    <div class="info-item" *ngIf="property.phone">
+      <span class="label">{{ 'PROPERTY.PHONE' | translate }}:</span> {{ property.phone }}
+      <a class="whatsapp-link" [href]="'https://wa.me/' + phoneDigits(property.phone)" target="_blank">
+        <img src="assets/whatsapp.svg" alt="WhatsApp" />
+      </a>
+    </div>
+    <div class="info-item" *ngIf="property.observation"><span class="label">{{ 'PROPERTY.OBSERVATION' | translate }}:</span> {{ property.observation }}</div>
+  </div>
+</div>
