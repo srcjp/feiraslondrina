@@ -66,7 +66,8 @@ public class SecurityConfiguration {
                   .csrf(AbstractHttpConfigurer::disable)
                   .authorizeHttpRequests(auth -> auth
                           .requestMatchers(mvc.pattern("/api/v1/auth/**")).permitAll()
-                          .requestMatchers(HttpMethod.GET, "/api/v1/pets/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/pets/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/properties/**").permitAll()
                           .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                           .requestMatchers(SWAGGER_WHITELIST).permitAll()
                           .anyRequest().authenticated())
