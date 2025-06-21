@@ -4,23 +4,18 @@ import { RegisterComponent } from './auth/register/register.component';
 import { VerifyComponent } from './auth/verify/verify.component';
 import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { PetMapComponent } from './pet/pet-map.component';
-import { PetFormComponent } from './pet/pet-form.component';
 import { PropertyMapComponent } from './property/property-map.component';
 import { PropertyFormComponent } from './property/property-form.component';
 import { PropertyDetailComponent } from './property/property-detail.component';
 import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'pet', pathMatch: 'full' },
+  { path: '', redirectTo: 'property', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'recovery', component: RecoveryComponent },
-  { path: 'pet', component: PetMapComponent },
-  { path: 'pet/new', component: PetFormComponent, canActivate: [AuthGuard] },
-  { path: 'pet/:id/edit', component: PetFormComponent, canActivate: [AuthGuard] },
   { path: 'property', component: PropertyMapComponent },
   { path: 'property/new', component: PropertyFormComponent, canActivate: [AuthGuard] },
   { path: 'property/:id/edit', component: PropertyFormComponent, canActivate: [AuthGuard] },

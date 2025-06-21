@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PropertyListingService {
     private final PropertyListingRepository repository;
-    private final com.securitygateway.loginboilerplate.service.pet.ImageResizeService imageService;
+    private final com.securitygateway.loginboilerplate.service.file.ImageResizeService imageService;
 
     public PropertyListing save(PropertyListing listing, MultipartFile[] files, User user) throws IOException {
         List<String> paths = new ArrayList<>();
