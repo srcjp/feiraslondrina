@@ -29,6 +29,9 @@ export interface PropertyListing {
   phone?: string;
   name?: string;
   date?: string;
+  breed?: string;
+  size?: string;
+  color?: string;
   latitude?: number;
   longitude?: number;
   images?: string[];
