@@ -6,12 +6,10 @@
         <tr>
           <th>{{ 'PROPERTY.IMAGE' | translate }}</th>
           <th>{{ 'PROPERTY.STATUS' | translate }}</th>
-          <th>{{ 'PROPERTY.NAME' | translate }}</th>
-          <th>{{ 'PROPERTY.DATE' | translate }}</th>
-          <th>{{ 'PROPERTY.BREED' | translate }}</th>
-          <th>{{ 'PROPERTY.SIZE' | translate }}</th>
-          <th>{{ 'PROPERTY.COLOR' | translate }}</th>
-          <th>{{ 'PROPERTY.OBSERVATION' | translate }}</th>
+          <th>{{ 'PROPERTY.TITLE' | translate }}</th>
+          <th>{{ 'PROPERTY.PRICE' | translate }}</th>
+          <th>{{ 'PROPERTY.BEDROOMS' | translate }}</th>
+          <th>{{ 'PROPERTY.BATHROOMS' | translate }}</th>
           <th>{{ 'PROPERTY.PHONE' | translate }}</th>
           <th>{{ 'PROPERTY.ACTIONS' | translate }}</th>
         </tr>
@@ -22,12 +20,10 @@
             <img *ngIf="p.images?.length" [src]="p.images?.[0]" width="50" />
           </td>
           <td>{{ ('PROPERTY.STATUS_' + p.status) | translate }}</td>
-          <td>{{ p.name }}</td>
-          <td>{{ p.date | date:'dd/MM/yyyy' }}</td>
-          <td>{{ p.breed }}</td>
-          <td>{{ p.size }}</td>
-          <td>{{ p.color }}</td>
-          <td>{{ p.observation }}</td>
+          <td>{{ p.title }}</td>
+          <td>{{ p.price }}</td>
+          <td>{{ p.bedrooms }}</td>
+          <td>{{ p.bathrooms }}</td>
           <td>{{ p.phone }}</td>
           <td>
             <button mat-button color="primary" (click)="edit(p)" [disabled]="p.deleted">{{ 'PROPERTY.EDIT' | translate }}</button>

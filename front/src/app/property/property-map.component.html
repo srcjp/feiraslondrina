@@ -7,8 +7,8 @@
           <mat-label>{{ 'PROPERTY.FILTER_STATUS' | translate }}</mat-label>
           <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilters()">
             <mat-option value="">{{ 'PROPERTY.ALL' | translate }}</mat-option>
-            <mat-option value="LOST">{{ 'PROPERTY.STATUS_LOST' | translate }}</mat-option>
-            <mat-option value="FOUND">{{ 'PROPERTY.STATUS_FOUND' | translate }}</mat-option>
+            <mat-option value="SALE">{{ 'PROPERTY.STATUS_LOST' | translate }}</mat-option>
+            <mat-option value="RENT">{{ 'PROPERTY.STATUS_FOUND' | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
 

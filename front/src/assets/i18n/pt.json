@@ -149,7 +149,26 @@
       "LAST_15_DAYS": "Últimos 15 dias",
       "LAST_30_DAYS": "Últimos 30 dias",
       "ALL": "Todos",
-      "MORE_DETAILS": "Mais detalhes"
+      "MORE_DETAILS": "Mais detalhes",
+      "TITLE": "Título",
+      "SUBTITLE": "Subtítulo",
+      "PROPERTY_TYPE": "Tipo",
+      "PRICE": "Preço",
+      "CONDO_FEE": "Condomínio",
+      "REFERENCE": "Referência",
+      "REALTOR": "Corretor",
+      "BEDROOMS": "Quartos",
+      "SUITES": "Suítes",
+      "BATHROOMS": "Banheiros",
+      "GARAGES": "Garagens",
+      "AREA_UTIL": "Área útil",
+      "AREA_TOTAL": "Área total",
+      "DESCRIPTION": "Descrição",
+      "PROPERTY_ITEMS": "Itens do imóvel (separados por vírgula)",
+      "BUILDING_ITEMS": "Itens do prédio (separados por vírgula)",
+      "NEIGHBORHOOD": "Bairro",
+      "STREET": "Rua",
+      "NEIGHBORHOOD_DESCRIPTION": "Descrição do bairro"
     },
     "FOOTER": {
       "BY": "by jpfurlan"
