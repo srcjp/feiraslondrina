@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cadeopet": {
+    "feiraslondrina": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/cadeopet",
+            "outputPath": "dist/feiraslondrina",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "cadeopet:build:production"
+              "buildTarget": "feiraslondrina:build:production"
             },
             "development": {
-              "buildTarget": "cadeopet:build:development"
+              "buildTarget": "feiraslondrina:build:development"
             }
           },
           "defaultConfiguration": "development"

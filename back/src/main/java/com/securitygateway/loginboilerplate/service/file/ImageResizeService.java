@@ -1,4 +1,4 @@
-package com.securitygateway.loginboilerplate.service.pet;
+package com.securitygateway.loginboilerplate.service.file;
 
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Service;
