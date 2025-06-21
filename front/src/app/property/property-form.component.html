@@ -10,9 +10,95 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.STATUS' | translate }}</mat-label>
         <mat-select formControlName="status">
-          <mat-option value="LOST">{{ 'PROPERTY.STATUS_LOST' | translate }}</mat-option>
-          <mat-option value="FOUND">{{ 'PROPERTY.STATUS_FOUND' | translate }}</mat-option>
+          <mat-option value="SALE">{{ 'PROPERTY.STATUS_LOST' | translate }}</mat-option>
+          <mat-option value="RENT">{{ 'PROPERTY.STATUS_FOUND' | translate }}</mat-option>
         </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.TITLE' | translate }}</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.SUBTITLE' | translate }}</mat-label>
+        <input matInput formControlName="subtitle" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.PROPERTY_TYPE' | translate }}</mat-label>
+        <input matInput formControlName="propertyType" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.PRICE' | translate }}</mat-label>
+        <input matInput type="number" formControlName="price" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.CONDO_FEE' | translate }}</mat-label>
+        <input matInput type="number" formControlName="condoFee" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.REFERENCE' | translate }}</mat-label>
+        <input matInput formControlName="reference" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.REALTOR' | translate }}</mat-label>
+        <input matInput formControlName="realtor" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.BEDROOMS' | translate }}</mat-label>
+        <input matInput type="number" formControlName="bedrooms" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.SUITES' | translate }}</mat-label>
+        <input matInput type="number" formControlName="suites" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.BATHROOMS' | translate }}</mat-label>
+        <input matInput type="number" formControlName="bathrooms" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.GARAGES' | translate }}</mat-label>
+        <input matInput type="number" formControlName="garages" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.AREA_UTIL' | translate }}</mat-label>
+        <input matInput type="number" formControlName="areaUtil" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.AREA_TOTAL' | translate }}</mat-label>
+        <input matInput type="number" formControlName="areaTotal" />
+      </mat-form-field>
+    </div>
+    <div class="column">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.DESCRIPTION' | translate }}</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}</mat-label>
+        <textarea matInput formControlName="propertyItems"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.BUILDING_ITEMS' | translate }}</mat-label>
+        <textarea matInput formControlName="buildingItems"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.NEIGHBORHOOD' | translate }}</mat-label>
+        <input matInput formControlName="neighborhood" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.STREET' | translate }}</mat-label>
+        <input matInput formControlName="street" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.NEIGHBORHOOD_DESCRIPTION' | translate }}</mat-label>
+        <textarea matInput formControlName="neighborhoodDescription"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.OBSERVATION' | translate }}</mat-label>
+        <textarea matInput formControlName="observation"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PROPERTY.PHONE' | translate }}</mat-label>
+        <input matInput formControlName="phone" mask="(00) 00000-0000" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.NAME' | translate }}</mat-label>
@@ -24,34 +110,9 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.BREED' | translate }}</mat-label>
-        <input matInput formControlName="breed" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.SIZE' | translate }}</mat-label>
-        <input matInput formControlName="size" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.COLOR' | translate }}</mat-label>
-        <input matInput formControlName="color" />
-      </mat-form-field>
-    </div>
-    <div class="column">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.OBSERVATION' | translate }}</mat-label>
-        <textarea matInput formControlName="observation"></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.PHONE' | translate }}</mat-label>
-        <input matInput formControlName="phone" mask="(00) 00000-0000" />
-      </mat-form-field>
-
       <label class="address-label">{{ 'PROPERTY.SELECT_ADDRESS' | translate }}</label>
       <div id="selectMap" class="map"></div>
       <div class="coords">Lat: {{form.value.latitude}} - Lng: {{form.value.longitude}}</div>
-
       <label class="images-label">{{ 'PROPERTY.IMAGES' | translate }}</label>
       <input type="file" multiple accept="image/*" (change)="onFile($event)" />
       <div class="preview-list">

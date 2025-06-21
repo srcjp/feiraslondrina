@@ -150,7 +150,7 @@ export class PropertyMapComponent implements OnInit {
         this.clusterLayer.addLayer(marker);
       } else {
         const property = (c.properties as any).property as PropertyListing;
-        const icon = property.status === 'FOUND' ? rentIcon : saleIcon;
+        const icon = property.status === 'RENT' ? rentIcon : saleIcon;
         const marker = L.marker([lat, lng], { icon });
         const popupHost = document.createElement('div');
         const compRef = this.vcr.createComponent(PropertyPopupComponent, {

@@ -51,7 +51,7 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
   private pendingCoords?: L.LatLngTuple;
 
   private getCurrentIcon(): L.Icon {
-    return this.form?.value.status === 'FOUND' ? rentIcon : saleIcon;
+    return this.form?.value.status === 'RENT' ? rentIcon : saleIcon;
   }
 
   id?: number;
@@ -65,14 +65,30 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) @Optional() data?: { id?: number }
   ) {
     this.form = this.fb.group({
-      status: ['LOST', Validators.required],
-      name: ['', Validators.required],
-      date: ['', Validators.required],
-      breed: ['', Validators.required],
-      size: ['', Validators.required],
-      color: ['', Validators.required],
-      observation: ['', Validators.required],
+      status: ['SALE', Validators.required],
+      title: ['', Validators.required],
+      subtitle: [''],
+      propertyType: [''],
+      price: [null],
+      condoFee: [null],
+      reference: [''],
+      realtor: [''],
+      bedrooms: [null],
+      suites: [null],
+      bathrooms: [null],
+      garages: [null],
+      areaUtil: [null],
+      areaTotal: [null],
+      description: [''],
+      propertyItems: [''],
+      buildingItems: [''],
+      neighborhood: [''],
+      street: [''],
+      neighborhoodDescription: [''],
+      observation: [''],
       phone: ['', Validators.required],
+      name: [''],
+      date: [''],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
@@ -87,6 +103,12 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
     if (paramId) {
       this.id = +paramId;
       this.service.get(this.id).subscribe(p => {
+        if(p.propertyItems){
+          (p as any).propertyItems = p.propertyItems.join(', ');
+        }
+        if(p.buildingItems){
+          (p as any).buildingItems = p.buildingItems.join(', ');
+        }
         this.form.patchValue(p);
         if(p.date){
           this.form.patchValue({ date: new Date(p.date) });
@@ -196,6 +218,11 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
     for(const key in this.form.value){
       let val = (this.form.value as any)[key];
       if(val !== null && val !== undefined){
+        if(key === 'propertyItems' || key === 'buildingItems'){
+          val.split(',').map((v: string) => v.trim()).filter((v: string) => v)
+            .forEach((v: string) => data.append(key, v));
+          continue;
+        }
         if(val instanceof Date){
           val = val.toISOString().split('T')[0];
         }

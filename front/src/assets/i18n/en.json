@@ -142,7 +142,26 @@
         "LAST_15_DAYS": "Last 15 days",
         "LAST_30_DAYS": "Last 30 days",
         "ALL": "All",
-        "MORE_DETAILS": "More details"
+        "MORE_DETAILS": "More details",
+        "TITLE": "Title",
+        "SUBTITLE": "Subtitle",
+        "PROPERTY_TYPE": "Type",
+        "PRICE": "Price",
+        "CONDO_FEE": "Condo fee",
+        "REFERENCE": "Reference",
+        "REALTOR": "Realtor",
+        "BEDROOMS": "Bedrooms",
+        "SUITES": "Suites",
+        "BATHROOMS": "Bathrooms",
+        "GARAGES": "Garages",
+        "AREA_UTIL": "Usable area",
+        "AREA_TOTAL": "Total area",
+        "DESCRIPTION": "Description",
+        "PROPERTY_ITEMS": "Property items (comma separated)",
+        "BUILDING_ITEMS": "Building items (comma separated)",
+        "NEIGHBORHOOD": "Neighborhood",
+        "STREET": "Street",
+        "NEIGHBORHOOD_DESCRIPTION": "Neighborhood description"
       },
       "FOOTER": {
         "BY": "by jpfurlan"
