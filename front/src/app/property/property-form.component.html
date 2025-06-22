@@ -35,7 +35,7 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Subtipo</mat-label>
         <mat-select formControlName="propertySubtype" required>
-          <mat-option *ngFor="let st of availableSubtypes" [value]="st">{{ st }}</mat-option>
+          <mat-option *ngFor="let st of availableSubtypes" [value]="st">{{ st | enumLabel }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
@@ -95,13 +95,13 @@
       <mat-form-field appearance="outline" class="full-width large-multiselect">
         <mat-label>{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}</mat-label>
         <mat-select formControlName="propertyItems" multiple required>
-          <mat-option *ngFor="let item of propertyItemValues" [value]="item">{{ item }}</mat-option>
+          <mat-option *ngFor="let item of propertyItemValues" [value]="item">{{ item | enumLabel }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width large-multiselect">
         <mat-label>{{ 'PROPERTY.BUILDING_ITEMS' | translate }}</mat-label>
         <mat-select formControlName="buildingItems" multiple required>
-          <mat-option *ngFor="let item of buildingItemValues" [value]="item">{{ item }}</mat-option>
+          <mat-option *ngFor="let item of buildingItemValues" [value]="item">{{ item | enumLabel }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
