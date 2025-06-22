@@ -55,6 +55,11 @@
   justify-content: flex-end;
 }
 
+.large-multiselect .mat-mdc-form-field-infix {
+  min-height: 150px;
+  align-items: flex-start;
+}
+
   .preview-list {
     margin-top: 8px;
     .carousel {

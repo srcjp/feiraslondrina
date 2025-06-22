@@ -34,7 +34,9 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Subtipo</mat-label>
-        <input matInput formControlName="propertySubtype" />
+        <mat-select formControlName="propertySubtype">
+          <mat-option *ngFor="let st of availableSubtypes" [value]="st">{{ st }}</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Finalidade</mat-label>
@@ -77,12 +79,12 @@
         <input matInput type="number" formControlName="garages" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.AREA_UTIL' | translate }}</mat-label>
-        <input matInput type="number" placeholder="(m²)" formControlName="areaUtil" />
+        <mat-label>{{ 'PROPERTY.AREA_UTIL' | translate }} (m²)</mat-label>
+        <input matInput type="number" formControlName="areaUtil" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>{{ 'PROPERTY.AREA_TOTAL' | translate }}</mat-label>
-        <input matInput type="number" placeholder="(m²)" formControlName="areaTotal" />
+        <mat-label>{{ 'PROPERTY.AREA_TOTAL' | translate }} (m²)</mat-label>
+        <input matInput type="number" formControlName="areaTotal" />
       </mat-form-field>
     </div>
     <div class="column">
@@ -90,13 +92,17 @@
         <mat-label>{{ 'PROPERTY.DESCRIPTION' | translate }}</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="full-width large-multiselect">
         <mat-label>{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}</mat-label>
-        <textarea matInput formControlName="propertyItems"></textarea>
+        <mat-select formControlName="propertyItems" multiple>
+          <mat-option *ngFor="let item of propertyItemValues" [value]="item">{{ item }}</mat-option>
+        </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="full-width large-multiselect">
         <mat-label>{{ 'PROPERTY.BUILDING_ITEMS' | translate }}</mat-label>
-        <textarea matInput formControlName="buildingItems"></textarea>
+        <mat-select formControlName="buildingItems" multiple>
+          <mat-option *ngFor="let item of buildingItemValues" [value]="item">{{ item }}</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.NEIGHBORHOOD' | translate }}</mat-label>
