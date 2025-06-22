@@ -100,7 +100,7 @@ export class PropertyDetailComponent implements OnInit {
     Array.from(files)
       .slice(0, 3)
       .forEach(f => data.append('images', f));
-    this.service.update(p.id, data).subscribe(r => {
+    this.service.update(p.id!, data).subscribe(r => {
       this.property = r;
       this.images = r.images || [];
       this.currentImage = 0;
