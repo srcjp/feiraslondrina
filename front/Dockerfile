@@ -8,6 +8,6 @@ RUN npm run build -- --configuration production
 
 # Runtime stage
 FROM nginx:stable-alpine
-COPY --from=build /app/dist/feiraslondrina /usr/share/nginx/html
+COPY --from=build /app/dist/imovco /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
