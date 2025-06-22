@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.securitygateway.loginboilerplate.model.property.enums.Finalidade;
+import com.securitygateway.loginboilerplate.model.property.enums.PropertyType;
+import com.securitygateway.loginboilerplate.model.property.enums.PropertySubType;
 
 @Data
 @Entity
@@ -28,7 +31,12 @@ public class PropertyListing {
     private String status; // RENT or SALE
     private String title;
     private String subtitle;
-    private String propertyType;
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType;
+    @Enumerated(EnumType.STRING)
+    private PropertySubType propertySubtype;
+    @Enumerated(EnumType.STRING)
+    private Finalidade finalidade;
     private Double price;
     private Double condoFee;
     private String reference;

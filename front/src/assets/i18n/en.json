@@ -99,6 +99,8 @@
     "REMOVE": "Remove",
     "STATUS_LOST": "Sale",
     "STATUS_FOUND": "Rent",
+    "STATUS_SALE": "Sale",
+    "STATUS_RENT": "Rent",
     "SAVE": "Save",
     "FILTERS_TITLE": "Filters",
     "FILTER_STATUS": "Filter Status",
