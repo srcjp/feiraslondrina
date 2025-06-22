@@ -8,6 +8,7 @@ import com.securitygateway.loginboilerplate.model.property.enums.PropertyType;
 import com.securitygateway.loginboilerplate.model.property.enums.PropertySubType;
 import com.securitygateway.loginboilerplate.model.property.enums.Finalidade;
 import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class PropertyListingController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public PropertyListing create(@ModelAttribute PropertyListing listing,
+    public PropertyListing create(@Valid @ModelAttribute PropertyListing listing,
                                   @RequestPart(value = "images", required = false) MultipartFile[] images,
                                   @CurrentUser User user) throws IOException {
         return service.save(listing, images, user);
@@ -55,7 +56,7 @@ public class PropertyListingController {
 
     @PutMapping(value="/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PropertyListing update(@PathVariable Long id,
-                                  @ModelAttribute PropertyListing listing,
+                                  @Valid @ModelAttribute PropertyListing listing,
                                   @RequestPart(value="images", required = false) MultipartFile[] images,
                                   @CurrentUser User user) throws IOException {
         return service.update(id, listing, images, user);
