@@ -24,6 +24,7 @@ import {
   BuildingItemEnum,
   PropertySubtypesByType
 } from './property.enums';
+import { EnumLabelPipe } from './enum-label.pipe';
 
 @Component({
   selector: 'app-property-form',
@@ -41,7 +42,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     TranslateModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    EnumLabelPipe
   ],
   templateUrl: './property-form.component.html',
   styleUrls: ['./property-form.component.scss']

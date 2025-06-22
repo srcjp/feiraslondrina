@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PropertyService, PropertyListing } from './property.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { EnumLabelPipe } from './enum-label.pipe';
 
 @Component({
   selector: 'app-property-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, TranslateModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, TranslateModule, EnumLabelPipe],
   templateUrl: './property-detail.component.html',
   styleUrls: ['./property-detail.component.scss']
 })
