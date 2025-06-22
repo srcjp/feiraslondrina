@@ -17,6 +17,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaskDirective } from 'ngx-mask';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs/operators';
+import {
+  PropertyType,
+  PropertySubtype,
+  PropertyItemEnum,
+  BuildingItemEnum,
+  PropertySubtypesByType
+} from './property.enums';
 
 @Component({
   selector: 'app-property-form',
@@ -51,6 +58,11 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
   private marker?: L.Marker;
   private pendingCoords?: L.LatLngTuple;
 
+  propertyTypes = Object.values(PropertyType);
+  availableSubtypes: PropertySubtype[] = [];
+  propertyItemValues = Object.values(PropertyItemEnum);
+  buildingItemValues = Object.values(BuildingItemEnum);
+
   private getCurrentIcon(): L.Icon {
     return this.form?.value.status === 'RENT' ? rentIcon : saleIcon;
   }
@@ -83,8 +95,8 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       areaUtil: [null],
       areaTotal: [null],
       description: [''],
-      propertyItems: [''],
-      buildingItems: [''],
+      propertyItems: this.fb.control([]),
+      buildingItems: this.fb.control([]),
       neighborhood: [''],
       street: [''],
       neighborhoodDescription: [''],
@@ -96,6 +108,11 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       longitude: [null, Validators.required]
     });
     this.form.get('status')!.valueChanges.subscribe(() => this.updateMarkerIcon());
+    this.updateSubtypes(this.form.value.propertyType);
+    this.form.get('propertyType')!.valueChanges.subscribe(t => {
+      this.updateSubtypes(t);
+      this.form.patchValue({ propertySubtype: '' });
+    });
     if (data && data.id) {
       this.id = data.id;
     }
@@ -106,13 +123,16 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
     if (paramId) {
       this.id = +paramId;
       this.service.get(this.id).subscribe(p => {
+        this.form.patchValue(p);
         if(p.propertyItems){
-          (p as any).propertyItems = p.propertyItems.join(', ');
+          this.form.patchValue({propertyItems: p.propertyItems});
         }
         if(p.buildingItems){
-          (p as any).buildingItems = p.buildingItems.join(', ');
+          this.form.patchValue({buildingItems: p.buildingItems});
         }
-        this.form.patchValue(p);
+        if(p.propertyType){
+          this.updateSubtypes(p.propertyType as PropertyType);
+        }
         if(p.date){
           this.form.patchValue({ date: new Date(p.date) });
         }
@@ -164,6 +184,14 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
   private updateMarkerIcon(){
     if(this.marker){
       this.marker.setIcon(this.getCurrentIcon());
+    }
+  }
+
+  private updateSubtypes(type: PropertyType | ''){
+    if(type && PropertySubtypesByType[type as PropertyType]){
+      this.availableSubtypes = PropertySubtypesByType[type as PropertyType];
+    } else {
+      this.availableSubtypes = [];
     }
   }
 
@@ -250,8 +278,7 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       let val = (this.form.value as any)[key];
       if(val !== null && val !== undefined){
         if(key === 'propertyItems' || key === 'buildingItems'){
-          val.split(',').map((v: string) => v.trim()).filter((v: string) => v)
-            .forEach((v: string) => data.append(key, v));
+          (val as string[]).forEach(v => data.append(key, v));
           continue;
         }
         if(val instanceof Date){

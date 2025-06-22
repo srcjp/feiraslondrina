@@ -64,3 +64,35 @@ export enum BuildingItemEnum {
   SALAO_DE_FESTAS = 'SALAO_DE_FESTAS',
   PORTARIA_24H = 'PORTARIA_24H'
 }
+
+export const PropertySubtypesByType: Record<PropertyType, PropertySubtype[]> = {
+  [PropertyType.APARTAMENTO]: [
+    PropertySubtype.COBERTURA,
+    PropertySubtype.PADRAO_AP,
+    PropertySubtype.SOBRELOJA_AP
+  ],
+  [PropertyType.CASA]: [
+    PropertySubtype.CASA_DE_FUNDOS,
+    PropertySubtype.CHACARA_CASA,
+    PropertySubtype.COMERCIAL_CASA,
+    PropertySubtype.CONDOMINIO,
+    PropertySubtype.CASA_PADRAO
+  ],
+  [PropertyType.COMERCIAL]: [
+    PropertySubtype.BARRACAO,
+    PropertySubtype.CONJUNTO_COMERCIAL,
+    PropertySubtype.EMPREENDIMENTO,
+    PropertySubtype.GALPAO,
+    PropertySubtype.IMOVEL_COMERCIAL,
+    PropertySubtype.LOJA,
+    PropertySubtype.PONTO,
+    PropertySubtype.SALA,
+    PropertySubtype.SALA_COMERCIAL_EDIFICIO,
+    PropertySubtype.SOBRELOJA_COM
+  ],
+  [PropertyType.RURAL]: [PropertySubtype.CHACARA_RURAL],
+  [PropertyType.TERRENO]: [
+    PropertySubtype.TERRENO_COMERCIAL,
+    PropertySubtype.TERRENO_PADRAO
+  ]
+};

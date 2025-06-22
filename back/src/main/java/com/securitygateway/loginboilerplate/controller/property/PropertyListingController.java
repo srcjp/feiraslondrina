@@ -4,6 +4,9 @@ import com.securitygateway.loginboilerplate.model.property.PropertyListing;
 import com.securitygateway.loginboilerplate.model.User;
 import com.securitygateway.loginboilerplate.security.CurrentUser;
 import com.securitygateway.loginboilerplate.service.property.PropertyListingService;
+import com.securitygateway.loginboilerplate.model.property.enums.PropertyType;
+import com.securitygateway.loginboilerplate.model.property.enums.PropertySubType;
+import com.securitygateway.loginboilerplate.model.property.enums.Finalidade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,6 +26,24 @@ public class PropertyListingController {
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.setDisallowedFields("images");
+        binder.registerCustomEditor(PropertyType.class, new java.beans.PropertyEditorSupport(){
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(PropertyType.valueOf(text.toUpperCase()));
+            }
+        });
+        binder.registerCustomEditor(PropertySubType.class, new java.beans.PropertyEditorSupport(){
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(PropertySubType.valueOf(text.toUpperCase()));
+            }
+        });
+        binder.registerCustomEditor(Finalidade.class, new java.beans.PropertyEditorSupport(){
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(Finalidade.valueOf(text.toUpperCase()));
+            }
+        });
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
