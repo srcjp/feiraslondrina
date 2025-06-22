@@ -1,5 +1,5 @@
 .property-detail {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 16px;
 }
@@ -106,6 +106,44 @@
   }
 }
 
+.price-card {
+  text-align: center;
+  font-size: 1.1em;
+}
+
 .back-btn {
   margin-bottom: 8px;
+}
+
+.columns {
+  display: flex;
+  gap: 16px;
+}
+
+.main-column {
+  flex: 3;
+}
+
+.side-column {
+  flex: 1;
+}
+
+.specs-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 2px 0;
 }
