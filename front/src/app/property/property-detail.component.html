@@ -1,19 +1,41 @@
 <div class="property-detail" *ngIf="property">
   <button mat-button routerLink="/property" class="back-btn">{{ 'COMMON.BACK' | translate }}</button>
-  <div class="images" *ngIf="property.images?.length">
-    <img *ngFor="let img of property.images" [src]="img" />
+  <div class="images" *ngIf="displayImages.length">
+    <img *ngFor="let img of displayImages" [src]="img" />
+  </div>
+  <div class="extra-carousel" *ngIf="extraImages.length">
+    <div class="carousel">
+      <button mat-icon-button type="button" (click)="prevImage()"><mat-icon>chevron_left</mat-icon></button>
+      <img [src]="extraImages[currentImage]" />
+      <button mat-icon-button type="button" (click)="nextImage()"><mat-icon>chevron_right</mat-icon></button>
+    </div>
   </div>
   <div class="info">
     <div class="info-item" *ngIf="property.title"><span class="label">{{ 'PROPERTY.TITLE' | translate }}:</span> {{ property.title }}</div>
     <div class="info-item" *ngIf="property.subtitle"><span class="label">{{ 'PROPERTY.SUBTITLE' | translate }}:</span> {{ property.subtitle }}</div>
+    <div class="info-item" *ngIf="property.propertyType"><span class="label">Tipo:</span> {{ property.propertyType }}</div>
     <div class="info-item" *ngIf="property.propertySubtype"><span class="label">Subtipo:</span> {{ property.propertySubtype | enumLabel }}</div>
     <div class="info-item" *ngIf="property.finalidade"><span class="label">Finalidade:</span> {{ property.finalidade }}</div>
     <div class="info-item"><span class="label">{{ 'PROPERTY.STATUS' | translate }}:</span> {{ ('PROPERTY.STATUS_' + property.status) | translate }}</div>
     <div class="info-item" *ngIf="property.price"><span class="label">{{ 'PROPERTY.PRICE' | translate }}:</span> {{ property.price | currency }}</div>
+    <div class="info-item" *ngIf="property.condoFee"><span class="label">{{ 'PROPERTY.CONDO_FEE' | translate }}:</span> {{ property.condoFee }}</div>
+    <div class="info-item" *ngIf="property.reference"><span class="label">{{ 'PROPERTY.REFERENCE' | translate }}:</span> {{ property.reference }}</div>
+    <div class="info-item" *ngIf="property.realtor"><span class="label">{{ 'PROPERTY.REALTOR' | translate }}:</span> {{ property.realtor }}</div>
     <div class="info-item" *ngIf="property.bedrooms"><span class="label">{{ 'PROPERTY.BEDROOMS' | translate }}:</span> {{ property.bedrooms }}</div>
+    <div class="info-item" *ngIf="property.suites"><span class="label">{{ 'PROPERTY.SUITES' | translate }}:</span> {{ property.suites }}</div>
     <div class="info-item" *ngIf="property.bathrooms"><span class="label">{{ 'PROPERTY.BATHROOMS' | translate }}:</span> {{ property.bathrooms }}</div>
+    <div class="info-item" *ngIf="property.garages"><span class="label">{{ 'PROPERTY.GARAGES' | translate }}:</span> {{ property.garages }}</div>
+    <div class="info-item" *ngIf="property.areaUtil"><span class="label">{{ 'PROPERTY.AREA_UTIL' | translate }}:</span> {{ property.areaUtil }}</div>
     <div class="info-item" *ngIf="property.areaTotal"><span class="label">{{ 'PROPERTY.AREA_TOTAL' | translate }}:</span> {{ property.areaTotal }}</div>
+    <div class="info-item" *ngIf="property.description"><span class="label">{{ 'PROPERTY.DESCRIPTION' | translate }}:</span> {{ property.description }}</div>
+    <div class="info-item" *ngIf="property.propertyItems?.length"><span class="label">{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}:</span> {{ property.propertyItems.map(i => (i | enumLabel)).join(', ') }}</div>
+    <div class="info-item" *ngIf="property.buildingItems?.length"><span class="label">{{ 'PROPERTY.BUILDING_ITEMS' | translate }}:</span> {{ property.buildingItems.map(i => (i | enumLabel)).join(', ') }}</div>
+    <div class="info-item" *ngIf="property.neighborhood"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD' | translate }}:</span> {{ property.neighborhood }}</div>
+    <div class="info-item" *ngIf="property.street"><span class="label">{{ 'PROPERTY.STREET' | translate }}:</span> {{ property.street }}</div>
+    <div class="info-item" *ngIf="property.neighborhoodDescription"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD_DESCRIPTION' | translate }}:</span> {{ property.neighborhoodDescription }}</div>
     <div class="info-item" *ngIf="property.phone"><span class="label">{{ 'PROPERTY.PHONE' | translate }}:</span> {{ property.phone }}</div>
     <div class="info-item" *ngIf="property.observation"><span class="label">{{ 'PROPERTY.OBSERVATION' | translate }}:</span> {{ property.observation }}</div>
+    <div class="info-item" *ngIf="property.name"><span class="label">{{ 'PROPERTY.NAME' | translate }}:</span> {{ property.name }}</div>
+    <div class="info-item" *ngIf="property.date"><span class="label">{{ 'PROPERTY.DATE' | translate }}:</span> {{ property.date }}</div>
   </div>
 </div>

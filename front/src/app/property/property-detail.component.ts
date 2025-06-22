@@ -15,13 +15,34 @@ import { EnumLabelPipe } from './enum-label.pipe';
 })
 export class PropertyDetailComponent implements OnInit {
   property?: PropertyListing;
+  displayImages: string[] = [];
+  extraImages: string[] = [];
+  currentImage = 0;
 
   constructor(private service: PropertyService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.service.get(id).subscribe(p => (this.property = p));
+      this.service.get(id).subscribe(p => {
+        this.property = p;
+        if (p.images) {
+          this.displayImages = p.images.slice(0, 6);
+          this.extraImages = p.images.slice(6);
+        }
+      });
+    }
+  }
+
+  nextImage() {
+    if (this.extraImages.length) {
+      this.currentImage = (this.currentImage + 1) % this.extraImages.length;
+    }
+  }
+
+  prevImage() {
+    if (this.extraImages.length) {
+      this.currentImage = (this.currentImage - 1 + this.extraImages.length) % this.extraImages.length;
     }
   }
 }

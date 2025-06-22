@@ -212,8 +212,7 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
     const files: FileList = event.target.files;
     this.imageLoading = true;
     this.images = Array.from(files)
-      .filter(f => f.type.startsWith('image/'))
-      .slice(0, 3);
+      .filter(f => f.type.startsWith('image/'));
     this.imageUrls = [...this.existingImages];
     let remaining = this.images.length;
     if (remaining === 0) {

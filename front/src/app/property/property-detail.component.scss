@@ -5,16 +5,32 @@
 }
 
 .images {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  flex-wrap: wrap;
   margin-bottom: 8px;
 
   img {
-    width: 200px;
-    height: 260px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
     border-radius: 4px;
+  }
+}
+
+.extra-carousel {
+  margin-bottom: 8px;
+
+  .carousel {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 200px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
   }
 }
 
