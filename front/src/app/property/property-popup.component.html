@@ -1,5 +1,13 @@
 <div class="popup-card">
-  <img *ngIf="property.images?.length" [src]="property.images?.[0]" class="popup-img" />
+  <div class="popup-carousel" *ngIf="property.images?.length">
+    <button *ngIf="property.images.length > 1" mat-icon-button class="prev" (click)="prevImage($event)">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <img [src]="property.images[currentImage]" class="popup-img" />
+    <button *ngIf="property.images.length > 1" mat-icon-button class="next" (click)="nextImage($event)">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
   <div class="popup-info-card">
     <div class="info-item" *ngIf="property.title"><span class="label">{{ 'PROPERTY.TITLE' | translate }}:</span> {{ property.title }}</div>
     <div class="info-item" *ngIf="property.propertySubtype"><span class="label">Subtipo:</span> {{ property.propertySubtype | enumLabel }}</div>

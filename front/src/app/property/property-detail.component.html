@@ -9,7 +9,6 @@
   <div class="thumbs" *ngIf="images.length > 1">
     <img *ngFor="let img of images; let i = index" [src]="img" [class.selected]="i === currentImage" (click)="currentImage = i" />
   </div>
-  <input *ngIf="loggedIn" type="file" multiple accept="image/*" (change)="onImageChange($event)" />
 
   <div class="columns">
     <div class="main-column">
@@ -68,6 +67,12 @@
   </div>
 
   <div class="image-overlay" *ngIf="selectedImage" (click)="closeImage()">
+    <button *ngIf="images.length > 1" mat-icon-button class="prev" (click)="prevImage(); $event.stopPropagation()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
     <img [src]="selectedImage" />
+    <button *ngIf="images.length > 1" mat-icon-button class="next" (click)="nextImage(); $event.stopPropagation()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
   </div>
 </div>
