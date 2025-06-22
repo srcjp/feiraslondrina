@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EnumLabelPipe } from './enum-label.pipe';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-property-detail',
@@ -23,10 +24,11 @@ import { EnumLabelPipe } from './enum-label.pipe';
 })
 export class PropertyDetailComponent implements OnInit {
   property?: PropertyListing;
-  displayImages: string[] = [];
-  extraImages: string[] = [];
+  images: string[] = [];
   currentImage = 0;
+  selectedImage?: string;
   private enumPipe = new EnumLabelPipe();
+  private map?: L.Map;
 
   getEnumLabels(items?: string[]): string {
     return items?.map(i => this.enumPipe.transform(i)).join(', ') || '';
@@ -39,23 +41,39 @@ export class PropertyDetailComponent implements OnInit {
     if (id) {
       this.service.get(id).subscribe(p => {
         this.property = p;
-        if (p.images) {
-          this.displayImages = p.images.slice(0, 6);
-          this.extraImages = p.images.slice(6);
+        this.images = p.images || [];
+        if (p.latitude && p.longitude) {
+          setTimeout(() => this.initMap(p.latitude!, p.longitude!), 0);
         }
       });
     }
   }
 
   nextImage() {
-    if (this.extraImages.length) {
-      this.currentImage = (this.currentImage + 1) % this.extraImages.length;
+    if (this.images.length) {
+      this.currentImage = (this.currentImage + 1) % this.images.length;
     }
   }
 
   prevImage() {
-    if (this.extraImages.length) {
-      this.currentImage = (this.currentImage - 1 + this.extraImages.length) % this.extraImages.length;
+    if (this.images.length) {
+      this.currentImage = (this.currentImage - 1 + this.images.length) % this.images.length;
     }
+  }
+
+  openImage(url: string) {
+    this.selectedImage = url;
+  }
+
+  closeImage() {
+    this.selectedImage = undefined;
+  }
+
+  private initMap(lat: number, lng: number) {
+    this.map = L.map('detailMap').setView([lat, lng], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(this.map);
+    L.marker([lat, lng]).addTo(this.map);
   }
 }
