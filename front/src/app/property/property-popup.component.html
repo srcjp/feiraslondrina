@@ -1,10 +1,10 @@
 <div class="popup-card">
   <div class="popup-carousel" *ngIf="property.images?.length">
-    <button *ngIf="property.images.length > 1" mat-icon-button class="prev" (click)="prevImage($event)">
+    <button *ngIf="property.images?.length > 1" mat-icon-button class="prev" (click)="prevImage($event)">
       <mat-icon>chevron_left</mat-icon>
     </button>
-    <img [src]="property.images[currentImage]" class="popup-img" />
-    <button *ngIf="property.images.length > 1" mat-icon-button class="next" (click)="nextImage($event)">
+    <img [src]="property.images?.[currentImage]" class="popup-img" />
+    <button *ngIf="property.images?.length > 1" mat-icon-button class="next" (click)="nextImage($event)">
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
