@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EnumLabelPipe } from './enum-label.pipe';
+import { defaultIcon } from './map-icon';
 import * as L from 'leaflet';
 
 @Component({
@@ -29,6 +30,10 @@ export class PropertyDetailComponent implements OnInit {
   selectedImage?: string;
   private enumPipe = new EnumLabelPipe();
   private map?: L.Map;
+
+  get loggedIn(): boolean {
+    return !!localStorage.getItem('accessToken');
+  }
 
   getEnumLabels(items?: string[]): string {
     return items?.map(i => this.enumPipe.transform(i)).join(', ') || '';
@@ -74,6 +79,31 @@ export class PropertyDetailComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
     }).addTo(this.map);
-    L.marker([lat, lng]).addTo(this.map);
+    L.marker([lat, lng], { icon: defaultIcon }).addTo(this.map);
+  }
+
+  onImageChange(event: any) {
+    if (!this.property?.id) return;
+    const files: FileList = event.target.files;
+    const p = this.property;
+    const data = new FormData();
+    data.append('status', p.status);
+    if (p.name) data.append('name', p.name);
+    if (p.date) data.append('date', p.date);
+    if (p.breed) data.append('breed', p.breed);
+    if (p.size) data.append('size', p.size);
+    if (p.color) data.append('color', p.color);
+    if (p.observation) data.append('observation', p.observation);
+    if (p.phone) data.append('phone', p.phone);
+    if (p.latitude) data.append('latitude', '' + p.latitude);
+    if (p.longitude) data.append('longitude', '' + p.longitude);
+    Array.from(files)
+      .slice(0, 3)
+      .forEach(f => data.append('images', f));
+    this.service.update(p.id, data).subscribe(r => {
+      this.property = r;
+      this.images = r.images || [];
+      this.currentImage = 0;
+    });
   }
 }

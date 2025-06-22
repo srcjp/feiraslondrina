@@ -1,9 +1,6 @@
 <div class="property-detail" *ngIf="property">
   <button mat-button routerLink="/property" class="back-btn">{{ 'COMMON.BACK' | translate }}</button>
 
-  <h1 class="title">{{ property.title }}</h1>
-  <h2 class="subtitle" *ngIf="property.subtitle">{{ property.subtitle }}</h2>
-
   <div class="carousel" *ngIf="images.length">
     <button mat-icon-button type="button" (click)="prevImage()"><mat-icon>chevron_left</mat-icon></button>
     <img [src]="images[currentImage]" (click)="openImage(images[currentImage])" />
@@ -12,36 +9,63 @@
   <div class="thumbs" *ngIf="images.length > 1">
     <img *ngFor="let img of images; let i = index" [src]="img" [class.selected]="i === currentImage" (click)="currentImage = i" />
   </div>
+  <input *ngIf="loggedIn" type="file" multiple accept="image/*" (change)="onImageChange($event)" />
 
-  <div class="info-card">
-    <div class="info-item" *ngIf="property.propertyType"><span class="label">Tipo:</span> {{ property.propertyType }}</div>
-    <div class="info-item" *ngIf="property.propertySubtype"><span class="label">Subtipo:</span> {{ property.propertySubtype | enumLabel }}</div>
-    <div class="info-item" *ngIf="property.finalidade"><span class="label">Finalidade:</span> {{ property.finalidade }}</div>
-    <div class="info-item"><span class="label">{{ 'PROPERTY.STATUS' | translate }}:</span> {{ ('PROPERTY.STATUS_' + property.status) | translate }}</div>
-    <div class="info-item" *ngIf="property.price"><span class="label">{{ 'PROPERTY.PRICE' | translate }}:</span> {{ property.price | currency:'BRL' }}</div>
-    <div class="info-item" *ngIf="property.condoFee"><span class="label">{{ 'PROPERTY.CONDO_FEE' | translate }}:</span> {{ property.condoFee | currency:'BRL' }}</div>
-    <div class="info-item" *ngIf="property.reference"><span class="label">{{ 'PROPERTY.REFERENCE' | translate }}:</span> {{ property.reference }}</div>
-    <div class="info-item" *ngIf="property.realtor"><span class="label">{{ 'PROPERTY.REALTOR' | translate }}:</span> {{ property.realtor }}</div>
-    <div class="info-item" *ngIf="property.bedrooms"><span class="label">{{ 'PROPERTY.BEDROOMS' | translate }}:</span> {{ property.bedrooms }}</div>
-    <div class="info-item" *ngIf="property.suites"><span class="label">{{ 'PROPERTY.SUITES' | translate }}:</span> {{ property.suites }}</div>
-    <div class="info-item" *ngIf="property.bathrooms"><span class="label">{{ 'PROPERTY.BATHROOMS' | translate }}:</span> {{ property.bathrooms }}</div>
-    <div class="info-item" *ngIf="property.garages"><span class="label">{{ 'PROPERTY.GARAGES' | translate }}:</span> {{ property.garages }}</div>
-    <div class="info-item" *ngIf="property.areaUtil"><span class="label">{{ 'PROPERTY.AREA_UTIL' | translate }}:</span> {{ property.areaUtil }} m²</div>
-    <div class="info-item" *ngIf="property.areaTotal"><span class="label">{{ 'PROPERTY.AREA_TOTAL' | translate }}:</span> {{ property.areaTotal }} m²</div>
-    <div class="info-item" *ngIf="property.description"><span class="label">{{ 'PROPERTY.DESCRIPTION' | translate }}:</span> {{ property.description }}</div>
-    <div class="info-item" *ngIf="property.propertyItems?.length"><span class="label">{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}:</span> {{ getEnumLabels(property.propertyItems) }}</div>
-    <div class="info-item" *ngIf="property.buildingItems?.length"><span class="label">{{ 'PROPERTY.BUILDING_ITEMS' | translate }}:</span> {{ getEnumLabels(property.buildingItems) }}</div>
-    <div class="info-item" *ngIf="property.neighborhood"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD' | translate }}:</span> {{ property.neighborhood }}</div>
-    <div class="info-item" *ngIf="property.street"><span class="label">{{ 'PROPERTY.STREET' | translate }}:</span> {{ property.street }}</div>
-    <div class="info-item" *ngIf="property.neighborhoodDescription"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD_DESCRIPTION' | translate }}:</span> {{ property.neighborhoodDescription }}</div>
-    <div class="info-item" *ngIf="property.phone"><span class="label">{{ 'PROPERTY.PHONE' | translate }}:</span> {{ property.phone }}</div>
-    <div class="info-item" *ngIf="property.observation"><span class="label">{{ 'PROPERTY.OBSERVATION' | translate }}:</span> {{ property.observation }}</div>
-    <div class="info-item" *ngIf="property.name"><span class="label">{{ 'PROPERTY.NAME' | translate }}:</span> {{ property.name }}</div>
-    <div class="info-item" *ngIf="property.date"><span class="label">{{ 'PROPERTY.DATE' | translate }}:</span> {{ property.date }}</div>
+  <div class="columns">
+    <div class="main-column">
+      <h1 class="title">{{ property.title }}</h1>
+      <h2 class="subtitle" *ngIf="property.subtitle">{{ property.subtitle }}</h2>
+
+      <div class="info-card specs-card">
+        <div class="spec" *ngIf="property.finalidade"><mat-icon>flag</mat-icon>{{ property.finalidade }}</div>
+        <div class="spec" *ngIf="property.reference"><mat-icon>assignment</mat-icon>{{ property.reference }}</div>
+        <div class="spec" *ngIf="property.bedrooms"><mat-icon>hotel</mat-icon>{{ property.bedrooms }}</div>
+        <div class="spec" *ngIf="property.suites"><mat-icon>king_bed</mat-icon>{{ property.suites }}</div>
+        <div class="spec" *ngIf="property.bathrooms"><mat-icon>bathtub</mat-icon>{{ property.bathrooms }}</div>
+        <div class="spec" *ngIf="property.garages"><mat-icon>garage</mat-icon>{{ property.garages }}</div>
+        <div class="spec" *ngIf="property.areaUtil"><mat-icon>straighten</mat-icon>{{ property.areaUtil }} m²</div>
+        <div class="spec" *ngIf="property.areaTotal"><mat-icon>fullscreen</mat-icon>{{ property.areaTotal }} m²</div>
+      </div>
+
+      <div class="info-card" *ngIf="property.description">
+        <h3>{{ 'PROPERTY.DESCRIPTION' | translate }}</h3>
+        <p>{{ property.description }}</p>
+      </div>
+
+      <div class="info-card" *ngIf="property.propertyItems?.length">
+        <h3>{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}</h3>
+        <div class="item" *ngFor="let item of property.propertyItems"><mat-icon>check</mat-icon>{{ item | enumLabel }}</div>
+      </div>
+
+      <div class="info-card" *ngIf="property.buildingItems?.length">
+        <h3>{{ 'PROPERTY.BUILDING_ITEMS' | translate }}</h3>
+        <div class="item" *ngFor="let item of property.buildingItems"><mat-icon>check</mat-icon>{{ item | enumLabel }}</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-item" *ngIf="property.propertyType"><span class="label">Tipo:</span> {{ property.propertyType }}</div>
+        <div class="info-item" *ngIf="property.propertySubtype"><span class="label">Subtipo:</span> {{ property.propertySubtype | enumLabel }}</div>
+        <div class="info-item" *ngIf="property.neighborhood"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD' | translate }}:</span> {{ property.neighborhood }}</div>
+        <div class="info-item" *ngIf="property.street"><span class="label">{{ 'PROPERTY.STREET' | translate }}:</span> {{ property.street }}</div>
+        <div class="info-item" *ngIf="property.neighborhoodDescription"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD_DESCRIPTION' | translate }}:</span> {{ property.neighborhoodDescription }}</div>
+        <div class="info-item" *ngIf="property.phone"><span class="label">{{ 'PROPERTY.PHONE' | translate }}:</span> {{ property.phone }}</div>
+        <div class="info-item" *ngIf="property.observation"><span class="label">{{ 'PROPERTY.OBSERVATION' | translate }}:</span> {{ property.observation }}</div>
+        <div class="info-item" *ngIf="property.name"><span class="label">{{ 'PROPERTY.NAME' | translate }}:</span> {{ property.name }}</div>
+        <div class="info-item" *ngIf="property.date"><span class="label">{{ 'PROPERTY.DATE' | translate }}:</span> {{ property.date }}</div>
+      </div>
+
+      <h3 class="map-title" *ngIf="property.latitude && property.longitude">Localização</h3>
+      <div id="detailMap" class="map" *ngIf="property.latitude && property.longitude"></div>
+    </div>
+
+    <div class="side-column">
+      <div class="info-card price-card">
+        <div class="info-item" *ngIf="property.price"><span class="label">{{ 'PROPERTY.PRICE' | translate }}:</span> {{ property.price | currency:'BRL' }}</div>
+        <div class="info-item" *ngIf="property.condoFee"><span class="label">{{ 'PROPERTY.CONDO_FEE' | translate }}:</span> {{ property.condoFee | currency:'BRL' }}</div>
+        <div class="info-item"><span class="label">{{ 'PROPERTY.STATUS' | translate }}:</span> {{ ('PROPERTY.STATUS_' + property.status) | translate }}</div>
+      </div>
+    </div>
   </div>
-
-  <h3 class="map-title" *ngIf="property.latitude && property.longitude">Localização</h3>
-  <div id="detailMap" class="map" *ngIf="property.latitude && property.longitude"></div>
 
   <div class="image-overlay" *ngIf="selectedImage" (click)="closeImage()">
     <img [src]="selectedImage" />

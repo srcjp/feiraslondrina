@@ -53,7 +53,14 @@ export enum PropertyItemEnum {
   VISTA_PANORAMICA = 'VISTA_PANORAMICA',
   HIDROMASSAGEM = 'HIDROMASSAGEM',
   AR_CONDICIONADO = 'AR_CONDICIONADO',
-  LAREIRA = 'LAREIRA'
+  LAREIRA = 'LAREIRA',
+  ARMARIOS_PLANEJADOS = 'ARMARIOS_PLANEJADOS',
+  BOX_EM_VIDRO = 'BOX_EM_VIDRO',
+  HALL_DE_ENTRADA = 'HALL_DE_ENTRADA',
+  SACADA_COM_CHURRASQUEIRA = 'SACADA_COM_CHURRASQUEIRA',
+  SALA_DE_ESTAR = 'SALA_DE_ESTAR',
+  SUITE_MASTER = 'SUITE_MASTER',
+  VARANDA = 'VARANDA'
 }
 
 export enum BuildingItemEnum {
@@ -62,7 +69,17 @@ export enum BuildingItemEnum {
   PISCINA = 'PISCINA',
   AREA_GOURMET = 'AREA_GOURMET',
   SALAO_DE_FESTAS = 'SALAO_DE_FESTAS',
-  PORTARIA_24H = 'PORTARIA_24H'
+  PORTARIA_24H = 'PORTARIA_24H',
+  ESPACO_KIDS = 'ESPACO_KIDS',
+  FITNESS = 'FITNESS',
+  PLAYGROUND = 'PLAYGROUND',
+  QUADRA_POLIESPORTIVA = 'QUADRA_POLIESPORTIVA',
+  SALAO_DE_JOGOS = 'SALAO_DE_JOGOS',
+  INTERFONE = 'INTERFONE',
+  PORTARIA = 'PORTARIA',
+  LAVANDERIA = 'LAVANDERIA',
+  ELEVADOR_SOCIAL = 'ELEVADOR_SOCIAL',
+  AQUECEDOR_A_GAS_CENTRAL = 'AQUECEDOR_A_GAS_CENTRAL'
 }
 
 export const PropertySubtypeLabels: Record<PropertySubtype, string> = {
@@ -106,7 +123,14 @@ export const PropertyItemLabels: Record<PropertyItemEnum, string> = {
   [PropertyItemEnum.VISTA_PANORAMICA]: 'Vista panorâmica',
   [PropertyItemEnum.HIDROMASSAGEM]: 'Hidromassagem',
   [PropertyItemEnum.AR_CONDICIONADO]: 'Ar condicionado',
-  [PropertyItemEnum.LAREIRA]: 'Lareira'
+  [PropertyItemEnum.LAREIRA]: 'Lareira',
+  [PropertyItemEnum.ARMARIOS_PLANEJADOS]: 'Armários planejados',
+  [PropertyItemEnum.BOX_EM_VIDRO]: 'Box em vidro',
+  [PropertyItemEnum.HALL_DE_ENTRADA]: 'Hall de entrada',
+  [PropertyItemEnum.SACADA_COM_CHURRASQUEIRA]: 'Sacada com churrasqueira',
+  [PropertyItemEnum.SALA_DE_ESTAR]: 'Sala de estar',
+  [PropertyItemEnum.SUITE_MASTER]: 'Suíte master',
+  [PropertyItemEnum.VARANDA]: 'Varanda'
 };
 
 export const BuildingItemLabels: Record<BuildingItemEnum, string> = {
@@ -115,7 +139,17 @@ export const BuildingItemLabels: Record<BuildingItemEnum, string> = {
   [BuildingItemEnum.PISCINA]: 'Piscina',
   [BuildingItemEnum.AREA_GOURMET]: 'Área gourmet',
   [BuildingItemEnum.SALAO_DE_FESTAS]: 'Salão de festas',
-  [BuildingItemEnum.PORTARIA_24H]: 'Portaria 24h'
+  [BuildingItemEnum.PORTARIA_24H]: 'Portaria 24h',
+  [BuildingItemEnum.ESPACO_KIDS]: 'Espaço kids',
+  [BuildingItemEnum.FITNESS]: 'Fitness',
+  [BuildingItemEnum.PLAYGROUND]: 'Playground',
+  [BuildingItemEnum.QUADRA_POLIESPORTIVA]: 'Quadra poliesportiva',
+  [BuildingItemEnum.SALAO_DE_JOGOS]: 'Salão de jogos',
+  [BuildingItemEnum.INTERFONE]: 'Interfone',
+  [BuildingItemEnum.PORTARIA]: 'Portaria',
+  [BuildingItemEnum.LAVANDERIA]: 'Lavanderia',
+  [BuildingItemEnum.ELEVADOR_SOCIAL]: 'Elevador social',
+  [BuildingItemEnum.AQUECEDOR_A_GAS_CENTRAL]: 'Aquecedor a gás central'
 };
 
 export const PropertySubtypesByType: Record<PropertyType, PropertySubtype[]> = {

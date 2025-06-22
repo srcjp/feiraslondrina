@@ -18,5 +18,12 @@ public enum PropertyItem {
     // adicionais
     HIDROMASSAGEM,
     AR_CONDICIONADO,
-    LAREIRA
+    LAREIRA,
+    ARMARIOS_PLANEJADOS,
+    BOX_EM_VIDRO,
+    HALL_DE_ENTRADA,
+    SACADA_COM_CHURRASQUEIRA,
+    SALA_DE_ESTAR,
+    SUITE_MASTER,
+    VARANDA
 }
