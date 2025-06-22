@@ -28,8 +28,8 @@
     <div class="info-item" *ngIf="property.areaUtil"><span class="label">{{ 'PROPERTY.AREA_UTIL' | translate }}:</span> {{ property.areaUtil }}</div>
     <div class="info-item" *ngIf="property.areaTotal"><span class="label">{{ 'PROPERTY.AREA_TOTAL' | translate }}:</span> {{ property.areaTotal }}</div>
     <div class="info-item" *ngIf="property.description"><span class="label">{{ 'PROPERTY.DESCRIPTION' | translate }}:</span> {{ property.description }}</div>
-    <div class="info-item" *ngIf="property.propertyItems?.length"><span class="label">{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}:</span> {{ property.propertyItems.map(i => (i | enumLabel)).join(', ') }}</div>
-    <div class="info-item" *ngIf="property.buildingItems?.length"><span class="label">{{ 'PROPERTY.BUILDING_ITEMS' | translate }}:</span> {{ property.buildingItems.map(i => (i | enumLabel)).join(', ') }}</div>
+    <div class="info-item" *ngIf="property.propertyItems?.length"><span class="label">{{ 'PROPERTY.PROPERTY_ITEMS' | translate }}:</span> {{ getEnumLabels(property.propertyItems) }}</div>
+    <div class="info-item" *ngIf="property.buildingItems?.length"><span class="label">{{ 'PROPERTY.BUILDING_ITEMS' | translate }}:</span> {{ getEnumLabels(property.buildingItems) }}</div>
     <div class="info-item" *ngIf="property.neighborhood"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD' | translate }}:</span> {{ property.neighborhood }}</div>
     <div class="info-item" *ngIf="property.street"><span class="label">{{ 'PROPERTY.STREET' | translate }}:</span> {{ property.street }}</div>
     <div class="info-item" *ngIf="property.neighborhoodDescription"><span class="label">{{ 'PROPERTY.NEIGHBORHOOD_DESCRIPTION' | translate }}:</span> {{ property.neighborhoodDescription }}</div>

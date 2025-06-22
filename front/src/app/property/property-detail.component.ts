@@ -18,6 +18,11 @@ export class PropertyDetailComponent implements OnInit {
   displayImages: string[] = [];
   extraImages: string[] = [];
   currentImage = 0;
+  private enumPipe = new EnumLabelPipe();
+
+  getEnumLabels(items?: string[]): string {
+    return items?.map(i => this.enumPipe.transform(i)).join(', ') || '';
+  }
 
   constructor(private service: PropertyService, private route: ActivatedRoute) {}
 
