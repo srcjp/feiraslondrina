@@ -9,6 +9,8 @@ export interface PropertyListing {
   title?: string;
   subtitle?: string;
   propertyType?: string;
+  propertySubtype?: string;
+  finalidade?: string;
   price?: number;
   condoFee?: number;
   reference?: string;

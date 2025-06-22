@@ -6,6 +6,8 @@
   <div class="info">
     <div class="info-item" *ngIf="property.title"><span class="label">{{ 'PROPERTY.TITLE' | translate }}:</span> {{ property.title }}</div>
     <div class="info-item" *ngIf="property.subtitle"><span class="label">{{ 'PROPERTY.SUBTITLE' | translate }}:</span> {{ property.subtitle }}</div>
+    <div class="info-item" *ngIf="property.propertySubtype"><span class="label">Subtipo:</span> {{ property.propertySubtype }}</div>
+    <div class="info-item" *ngIf="property.finalidade"><span class="label">Finalidade:</span> {{ property.finalidade }}</div>
     <div class="info-item"><span class="label">{{ 'PROPERTY.STATUS' | translate }}:</span> {{ ('PROPERTY.STATUS_' + property.status) | translate }}</div>
     <div class="info-item" *ngIf="property.price"><span class="label">{{ 'PROPERTY.PRICE' | translate }}:</span> {{ property.price | currency }}</div>
     <div class="info-item" *ngIf="property.bedrooms"><span class="label">{{ 'PROPERTY.BEDROOMS' | translate }}:</span> {{ property.bedrooms }}</div>

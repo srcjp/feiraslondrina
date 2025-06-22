@@ -24,7 +24,25 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.PROPERTY_TYPE' | translate }}</mat-label>
-        <input matInput formControlName="propertyType" />
+        <mat-select formControlName="propertyType">
+          <mat-option value="APARTAMENTO">Apartamento</mat-option>
+          <mat-option value="CASA">Casa</mat-option>
+          <mat-option value="COMERCIAL">Comercial</mat-option>
+          <mat-option value="RURAL">Rural</mat-option>
+          <mat-option value="TERRENO">Terreno</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subtipo</mat-label>
+        <input matInput formControlName="propertySubtype" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Finalidade</mat-label>
+        <mat-select formControlName="finalidade">
+          <mat-option value="RESIDENCIAL">Residencial</mat-option>
+          <mat-option value="COMERCIAL">Comercial</mat-option>
+          <mat-option value="MISTO">Misto</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.PRICE' | translate }}</mat-label>
@@ -60,11 +78,11 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.AREA_UTIL' | translate }}</mat-label>
-        <input matInput type="number" formControlName="areaUtil" />
+        <input matInput type="number" placeholder="(m²)" formControlName="areaUtil" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'PROPERTY.AREA_TOTAL' | translate }}</mat-label>
-        <input matInput type="number" formControlName="areaTotal" />
+        <input matInput type="number" placeholder="(m²)" formControlName="areaTotal" />
       </mat-form-field>
     </div>
     <div class="column">
@@ -115,9 +133,14 @@
       <div class="coords">Lat: {{form.value.latitude}} - Lng: {{form.value.longitude}}</div>
       <label class="images-label">{{ 'PROPERTY.IMAGES' | translate }}</label>
       <input type="file" multiple accept="image/*" (change)="onFile($event)" />
-      <div class="preview-list">
+      <div class="preview-list" *ngIf="imageUrls.length">
         <mat-progress-spinner *ngIf="imageLoading" diameter="30" mode="indeterminate"></mat-progress-spinner>
-        <img *ngFor="let img of imageUrls" [src]="img" />
+        <div class="carousel">
+          <button mat-icon-button type="button" (click)="prevImage()"><mat-icon>chevron_left</mat-icon></button>
+          <img [src]="imageUrls[currentImage]" />
+          <button mat-icon-button type="button" (click)="nextImage()"><mat-icon>chevron_right</mat-icon></button>
+          <button mat-icon-button type="button" class="delete-btn" (click)="removeCurrentImage()"><mat-icon>close</mat-icon></button>
+        </div>
       </div>
     </div>
   </div>

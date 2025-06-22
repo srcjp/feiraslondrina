@@ -56,15 +56,23 @@
 }
 
   .preview-list {
-    display: flex;
-    gap: 8px;
     margin-top: 8px;
-
-    img {
-      width: 110px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 4px;
+    .carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      img {
+        width: 110px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      button.delete-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: rgba(255,255,255,0.7);
+      }
     }
   }
 

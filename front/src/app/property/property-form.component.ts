@@ -43,6 +43,7 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   images: File[] = [];
   imageUrls: string[] = [];
+  currentImage = 0;
   private existingImages: string[] = [];
   loading = false;
   imageLoading = false;
@@ -69,6 +70,8 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       title: ['', Validators.required],
       subtitle: [''],
       propertyType: [''],
+      propertySubtype: [''],
+      finalidade: ['RESIDENCIAL'],
       price: [null],
       condoFee: [null],
       reference: [''],
@@ -190,6 +193,7 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageUrls.push(reader.result as string);
+        this.currentImage = this.imageUrls.length - 1;
         remaining--;
         if (remaining === 0) {
           this.imageLoading = false;
@@ -197,6 +201,33 @@ export class PropertyFormComponent implements OnInit, AfterViewInit {
       };
       reader.readAsDataURL(file);
     });
+  }
+
+  nextImage(){
+    if(this.imageUrls.length){
+      this.currentImage = (this.currentImage + 1) % this.imageUrls.length;
+    }
+  }
+
+  prevImage(){
+    if(this.imageUrls.length){
+      this.currentImage = (this.currentImage - 1 + this.imageUrls.length) % this.imageUrls.length;
+    }
+  }
+
+  removeCurrentImage(){
+    if(this.imageUrls.length){
+      this.imageUrls.splice(this.currentImage,1);
+      if(this.images.length > this.currentImage){
+        this.images.splice(this.currentImage,1);
+      } else {
+        const idx = this.currentImage - this.images.length;
+        this.existingImages.splice(idx,1);
+      }
+      if(this.currentImage >= this.imageUrls.length){
+        this.currentImage = this.imageUrls.length - 1;
+      }
+    }
   }
 
   close() {
