@@ -1,6 +1,9 @@
 package com.securitygateway.loginboilerplate.model.property;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +33,21 @@ public class PropertyListing {
 
     private String status; // RENT or SALE
     private String title;
+    @NotBlank
+    @Column(nullable = false)
     private String subtitle;
     @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(nullable = false)
     private PropertyType propertyType;
     @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(nullable = false)
     private PropertySubType propertySubtype;
     @Enumerated(EnumType.STRING)
     private Finalidade finalidade;
+    @NotNull
+    @Column(nullable = false)
     private Double price;
     private Double condoFee;
     private String reference;
@@ -45,27 +56,39 @@ public class PropertyListing {
     private Integer suites;
     private Integer bathrooms;
     private Integer garages;
+    @NotNull
+    @Column(nullable = false)
     private Double areaUtil;
     private Double areaTotal;
+    @NotBlank
+    @Column(nullable = false, length = 5000)
     private String description;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "property_items", joinColumns = @JoinColumn(name = "property_id"))
-    @Column(name = "item")
+    @Column(name = "item", nullable = false)
     @Builder.Default
+    @Size(min = 1)
     private List<String> propertyItems = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "building_items", joinColumns = @JoinColumn(name = "property_id"))
-    @Column(name = "item")
+    @Column(name = "item", nullable = false)
     @Builder.Default
+    @Size(min = 1)
     private List<String> buildingItems = new ArrayList<>();
 
+    @NotBlank
+    @Column(nullable = false)
     private String neighborhood;
+    @NotBlank
+    @Column(nullable = false)
     private String street;
     private String neighborhoodDescription;
 
     private String observation;
+    @NotBlank
+    @Column(nullable = false)
     private String phone;
     private String name;
     private LocalDate date;
