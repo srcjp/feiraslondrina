@@ -100,6 +100,21 @@
   align-items: center;
   z-index: 1000;
 
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+  }
+
+  button.prev {
+    left: 16px;
+  }
+
+  button.next {
+    right: 16px;
+  }
+
   img {
     max-width: 90%;
     max-height: 90%;
