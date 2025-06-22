@@ -22,9 +22,8 @@ public class PropertyListingService {
     public PropertyListing save(PropertyListing listing, MultipartFile[] files, User user) throws IOException {
         List<String> paths = new ArrayList<>();
         if(files != null){
-            int count = Math.min(files.length,3);
-            for(int i=0;i<count;i++){
-                paths.add(imageService.resizeAndSave(files[i]));
+            for(MultipartFile file : files){
+                paths.add(imageService.resizeAndSave(file));
             }
         }
         listing.setImages(paths);
@@ -81,10 +80,9 @@ public class PropertyListingService {
         existing.setLongitude(data.getLongitude());
 
         if(files != null && files.length > 0){
-            List<String> paths = new ArrayList<>();
-            int count = Math.min(files.length,3);
-            for(int i=0;i<count;i++){
-                paths.add(imageService.resizeAndSave(files[i]));
+            List<String> paths = new ArrayList<>(existing.getImages());
+            for(MultipartFile file : files){
+                paths.add(imageService.resizeAndSave(file));
             }
             existing.setImages(paths);
         }
