@@ -1,0 +1,67 @@
+<form class="pet-form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <button mat-icon-button type="button" class="close-btn" (click)="close()" *ngIf="dialogRef">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="form-columns">
+    <div class="column">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.STATUS' | translate }}</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="LOST">{{ 'PET.STATUS_LOST' | translate }}</mat-option>
+          <mat-option value="FOUND">{{ 'PET.STATUS_FOUND' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.NAME' | translate }}</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.DATE' | translate }}</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.BREED' | translate }}</mat-label>
+        <input matInput formControlName="breed" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.SIZE' | translate }}</mat-label>
+        <input matInput formControlName="size" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.COLOR' | translate }}</mat-label>
+        <input matInput formControlName="color" />
+      </mat-form-field>
+    </div>
+    <div class="column">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.OBSERVATION' | translate }}</mat-label>
+        <textarea matInput formControlName="observation"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'PET.PHONE' | translate }}</mat-label>
+        <input matInput formControlName="phone" mask="(00) 00000-0000" />
+      </mat-form-field>
+
+      <label class="address-label">{{ 'PET.SELECT_ADDRESS' | translate }}</label>
+      <div id="selectMap" class="map"></div>
+      <div class="coords">Lat: {{form.value.latitude}} - Lng: {{form.value.longitude}}</div>
+
+      <label class="images-label">{{ 'PET.IMAGES' | translate }}</label>
+      <input type="file" multiple accept="image/*" (change)="onFile($event)" />
+      <div class="preview-list">
+        <mat-progress-spinner *ngIf="imageLoading" diameter="30" mode="indeterminate"></mat-progress-spinner>
+        <img *ngFor="let img of imageUrls" [src]="img" />
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!canSave()">{{ 'PET.SAVE' | translate }}</button>
+    <button mat-button type="button" (click)="close()" *ngIf="dialogRef">{{ 'COMMON.CLOSE' | translate }}</button>
+  </div>
+</form>
