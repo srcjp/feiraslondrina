@@ -5,7 +5,11 @@ import com.securitygateway.loginboilerplate.model.User;
 import com.securitygateway.loginboilerplate.security.CurrentUser;
 import com.securitygateway.loginboilerplate.service.fair.FairService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 import java.util.List;
 
@@ -16,14 +20,24 @@ public class FairController {
 
     private final FairService service;
 
-    @PostMapping
-    public Fair create(@RequestBody Fair fair, @CurrentUser User user) {
-        return service.saveFair(fair, user);
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("imagePath");
     }
 
-    @PutMapping("/{id}")
-    public Fair update(@PathVariable Long id, @RequestBody Fair fair, @CurrentUser User user) {
-        return service.updateFair(id, fair, user);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Fair create(@ModelAttribute Fair fair,
+                       @RequestPart(value = "image", required = false) MultipartFile image,
+                       @CurrentUser User user) throws IOException {
+        return service.saveFair(fair, image, user);
+    }
+
+    @PutMapping(value="/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Fair update(@PathVariable Long id,
+                       @ModelAttribute Fair fair,
+                       @RequestPart(value="image", required = false) MultipartFile image,
+                       @CurrentUser User user) throws IOException {
+        return service.updateFair(id, fair, image, user);
     }
 
     @DeleteMapping("/{id}")

@@ -16,6 +16,14 @@
         <input matInput formControlName="address" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Responsável</mat-label>
+        <input matInput formControlName="responsible" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="phone" mask="(00) 00000-0000" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Horário</mat-label>
         <input matInput formControlName="schedule" />
       </mat-form-field>
@@ -33,6 +41,9 @@
         <mat-label>Atrações</mat-label>
         <textarea matInput formControlName="attractions"></textarea>
       </mat-form-field>
+      <label class="images-label">Imagem</label>
+      <input type="file" accept="image/*" (change)="onFile($event)" />
+      <img *ngIf="imageUrl" [src]="imageUrl" class="preview-img" />
     </div>
   </div>
   <label class="address-label">Selecione a localização</label>

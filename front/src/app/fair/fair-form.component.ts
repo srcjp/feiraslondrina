@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-fair-form',
@@ -24,7 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    TranslateModule
+    TranslateModule,
+    NgxMaskDirective
   ],
   templateUrl: './fair-form.component.html',
   styleUrls: ['./fair-form.component.scss']
@@ -34,6 +36,8 @@ export class FairFormComponent implements OnInit {
   loading = false;
   private map?: L.Map;
   private marker?: L.Marker;
+  imageFile?: File;
+  imageUrl?: string;
   id?: number;
 
   constructor(
@@ -51,6 +55,8 @@ export class FairFormComponent implements OnInit {
       schedule: [''],
       socialMedia: [''],
       attractions: [''],
+      responsible: [''],
+      phone: [''],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });
@@ -67,6 +73,9 @@ export class FairFormComponent implements OnInit {
         this.form.patchValue(f);
         if (f.latitude && f.longitude) {
           this.setMarker([f.latitude, f.longitude]);
+        }
+        if (f.imagePath) {
+          this.imageUrl = f.imagePath;
         }
       });
     }
@@ -109,6 +118,16 @@ export class FairFormComponent implements OnInit {
     this.form.patchValue({ latitude: ev.latlng.lat, longitude: ev.latlng.lng });
   }
 
+  onFile(event: any) {
+    const file: File = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      this.imageFile = file;
+      const reader = new FileReader();
+      reader.onload = () => (this.imageUrl = reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  }
+
   close() {
     if (this.dialogRef) {
       this.dialogRef.close();
@@ -117,7 +136,16 @@ export class FairFormComponent implements OnInit {
 
   submit() {
     this.loading = true;
-    const data: Fair = this.form.value;
+    const data = new FormData();
+    for (const key in this.form.value) {
+      const val = (this.form.value as any)[key];
+      if (val !== null && val !== undefined) {
+        data.append(key, '' + val);
+      }
+    }
+    if (this.imageFile) {
+      data.append('image', this.imageFile);
+    }
     const handle = (obs: any) => {
       obs.subscribe(() => {
         this.loading = false;

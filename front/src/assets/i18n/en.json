@@ -101,6 +101,9 @@
         "ACTIONS": "Actions",
         "EDIT": "Edit",
         "REMOVE": "Remove",
+      "RESPONSIBLE": "Responsible",
+      "PHONE": "Phone",
+      "IMAGE": "Image",
       "SAVE": "Save"
       },
       "MANAGE_FAIRS": "Manage fairs",
