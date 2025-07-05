@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FairService, Fair } from './fair.service';
@@ -10,8 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskDirective } from 'ngx-mask';
+import { AttractionService, Attraction } from './attraction.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-fair-form',
@@ -19,12 +22,14 @@ import { NgxMaskDirective } from 'ngx-mask';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatTableModule,
     TranslateModule,
     NgxMaskDirective
   ],
@@ -39,10 +44,12 @@ export class FairFormComponent implements OnInit {
   imageFile?: File;
   imageUrl?: string;
   id?: number;
+  attractions: Attraction[] = [];
 
   constructor(
     private fb: FormBuilder,
     private service: FairService,
+    private attractionService: AttractionService,
     private router: Router,
     private route: ActivatedRoute,
     @Optional() public dialogRef?: MatDialogRef<FairFormComponent>,
@@ -54,7 +61,6 @@ export class FairFormComponent implements OnInit {
       description: [''],
       schedule: [''],
       socialMedia: [''],
-      attractions: [''],
       responsible: [''],
       phone: [''],
       latitude: [null, Validators.required],
@@ -78,6 +84,7 @@ export class FairFormComponent implements OnInit {
           this.imageUrl = f.imagePath;
         }
       });
+      this.attractionService.listByFair(this.id).subscribe(list => (this.attractions = list));
     }
     this.initMap();
   }
@@ -128,6 +135,19 @@ export class FairFormComponent implements OnInit {
     }
   }
 
+  addAttraction() {
+    this.attractions.push({ name: '', specialty: '', socialMedia: '' });
+  }
+
+  removeAttraction(index: number) {
+    const a = this.attractions[index];
+    if (a.id) {
+      this.attractionService.delete(a.id).subscribe(() => this.attractions.splice(index, 1));
+    } else {
+      this.attractions.splice(index, 1);
+    }
+  }
+
   close() {
     if (this.dialogRef) {
       this.dialogRef.close();
@@ -146,15 +166,28 @@ export class FairFormComponent implements OnInit {
     if (this.imageFile) {
       data.append('image', this.imageFile);
     }
+    const finish = () => {
+      this.loading = false;
+      if (this.dialogRef) {
+        this.dialogRef.close(true);
+      } else {
+        this.router.navigate(['/fair']);
+      }
+    };
+
+    const saveAttractions = (fairId: number) => {
+      if (!this.attractions.length) {
+        finish();
+        return;
+      }
+      const calls = this.attractions.map(a =>
+        a.id ? this.attractionService.update(a.id, a) : this.attractionService.create(fairId, a)
+      );
+      forkJoin(calls).subscribe(() => finish());
+    };
+
     const handle = (obs: any) => {
-      obs.subscribe(() => {
-        this.loading = false;
-        if (this.dialogRef) {
-          this.dialogRef.close(true);
-        } else {
-          this.router.navigate(['/fair']);
-        }
-      });
+      obs.subscribe((f: Fair) => saveAttractions(f.id!));
     };
 
     if (this.id) {
