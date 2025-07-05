@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'fair', component: FairMapComponent },
   { path: 'fair/new', component: FairFormComponent, canActivate: [AuthGuard] },
   { path: 'fair/:id/edit', component: FairFormComponent, canActivate: [AuthGuard] },
-  { path: 'fair/:id', component: FairDetailComponent },
   { path: 'fair/manage', component: FairListComponent, canActivate: [AuthGuard] },
+  { path: 'fair/:id', component: FairDetailComponent },
   { path: '**', redirectTo: 'login' }
 ];

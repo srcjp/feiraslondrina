@@ -66,7 +66,7 @@ export class FairMapComponent implements OnInit {
           });
           compRef.instance.fair = f;
           popupHost.appendChild(compRef.location.nativeElement);
-          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 260 }).openPopup();
+          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 300 }).openPopup();
         });
         marker.on('popupclose', () => {
           if (compRef) {

@@ -37,10 +37,41 @@
         <mat-label>Redes sociais</mat-label>
         <input matInput formControlName="socialMedia" />
       </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Atrações</mat-label>
-        <textarea matInput formControlName="attractions"></textarea>
-      </mat-form-field>
+      <div class="attraction-section">
+        <h3>Atrações</h3>
+        <table mat-table [dataSource]="attractions" class="attraction-table" *ngIf="attractions.length">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let a; let i = index">
+              <input matInput [(ngModel)]="a.name" name="name{{i}}" />
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="specialty">
+            <th mat-header-cell *matHeaderCellDef>Especialidade</th>
+            <td mat-cell *matCellDef="let a; let i = index">
+              <input matInput [(ngModel)]="a.specialty" name="spec{{i}}" />
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="socialMedia">
+            <th mat-header-cell *matHeaderCellDef>Rede social</th>
+            <td mat-cell *matCellDef="let a; let i = index">
+              <input matInput [(ngModel)]="a.socialMedia" name="soc{{i}}" />
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let a; let i = index">
+              <button mat-icon-button type="button" (click)="removeAttraction(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['name','specialty','socialMedia','actions']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['name','specialty','socialMedia','actions'];"></tr>
+        </table>
+        <p *ngIf="!attractions.length">Nenhuma atração</p>
+        <button mat-button type="button" (click)="addAttraction()">Adicionar atração</button>
+      </div>
       <label class="images-label">Imagem</label>
       <input type="file" accept="image/*" (change)="onFile($event)" />
       <img *ngIf="imageUrl" [src]="imageUrl" class="preview-img" />
