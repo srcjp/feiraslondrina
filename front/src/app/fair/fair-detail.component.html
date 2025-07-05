@@ -5,6 +5,10 @@
   <div class="detail-info">
     <div *ngIf="fair.address"><strong>{{ 'FAIR.ADDRESS' | translate }}:</strong> {{ fair.address }}</div>
     <div *ngIf="fair.schedule"><strong>{{ 'FAIR.SCHEDULE' | translate }}:</strong> {{ fair.schedule }}</div>
+    <div *ngIf="fair.socialMedia">
+      <strong>{{ 'FAIR.SOCIAL_MEDIA' | translate }}:</strong>
+      <a [href]="fair.socialMedia" target="_blank">{{ fair.socialMedia }}</a>
+    </div>
     <div *ngIf="fair.responsible"><strong>{{ 'FAIR.RESPONSIBLE' | translate }}:</strong> {{ fair.responsible }}</div>
     <div *ngIf="fair.phone"><strong>{{ 'FAIR.PHONE' | translate }}:</strong> {{ fair.phone }}</div>
     <div *ngIf="fair.description"><strong>{{ 'FAIR.DESCRIPTION' | translate }}:</strong> {{ fair.description }}</div>

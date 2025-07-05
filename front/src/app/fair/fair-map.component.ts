@@ -83,7 +83,7 @@ export class FairMapComponent implements OnInit {
     this.markersLayer.clearLayers();
     this.filtered.forEach(f => {
       if (f.latitude && f.longitude) {
-        const marker = L.marker([f.latitude, f.longitude]).addTo(this.markersLayer);
+        const marker = L.marker([f.latitude, f.longitude]).addTo(this.markersLayer!);
         let compRef: any;
         marker.on('click', () => {
           if (compRef) {
