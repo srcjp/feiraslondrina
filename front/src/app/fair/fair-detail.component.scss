@@ -1,8 +1,41 @@
 .fair-detail {
   padding: 16px;
 }
+
+.close-btn {
+  margin-bottom: 16px;
+}
+
+.fair-card {
+  padding: 16px;
+}
+
 .detail-image {
   width: 100%;
   max-width: 400px;
   margin: 16px 0;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attractions {
+  margin-top: 16px;
+}
+
+.attractions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attractions-table th,
+.attractions-table td {
+  padding: 4px 8px;
+}
+
+.attractions-table th {
+  text-align: left;
 }
