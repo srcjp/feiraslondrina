@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { FairService, Fair } from './fair.service';
 import { AttractionService, Attraction } from './attraction.service';
 
 @Component({
   selector: 'app-fair-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, TranslateModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatCardModule, TranslateModule],
   templateUrl: './fair-detail.component.html',
   styleUrls: ['./fair-detail.component.scss']
 })
