@@ -96,33 +96,19 @@
       "ENGLISH": "Inglês"
     }
 
-    ,"PET": {
-      "ADD": "Adicionar pet",
-      "MY_RECORDS": "Meus registros",
-      "IMAGE": "Imagem",
-      "IMAGES": "Imagens",
-      "STATUS": "Status",
+    ,"FAIR": {
+      "ADD": "Adicionar feira",
       "NAME": "Nome",
-      "DATE": "Data",
-      "BREED": "Raça",
-      "SIZE": "Tamanho",
-      "COLOR": "Cor",
-      "OBSERVATION": "Observação",
-      "PHONE": "Telefone",
-      "SELECT_ADDRESS": "Selecione o endereço que o pet foi perdido ou encontrado",
+      "ADDRESS": "Endereço",
+      "DESCRIPTION": "Descrição",
+      "SCHEDULE": "Horário",
+      "SOCIAL_MEDIA": "Redes sociais",
+      "ATTRACTIONS": "Atrações",
+      "SELECT_LOCATION": "Selecione a localização",
       "ACTIONS": "Ações",
       "EDIT": "Editar",
       "REMOVE": "Remover",
-      "STATUS_LOST": "Perdido",
-      "STATUS_FOUND": "Encontrado",
-      "SAVE": "Salvar",
-      "FILTERS_TITLE": "Filtros",
-      "FILTER_STATUS": "Filtrar Status",
-      "FILTER_PERIOD": "Período",
-      "LAST_7_DAYS": "Últimos 7 dias",
-      "LAST_15_DAYS": "Últimos 15 dias",
-      "LAST_30_DAYS": "Últimos 30 dias",
-      "ALL": "Todos"
+      "SAVE": "Salvar"
     },
     "FOOTER": {
       "BY": "by jpfurlan"

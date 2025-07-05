@@ -1,0 +1,45 @@
+<form class="fair-form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <button mat-icon-button type="button" class="close-btn" (click)="close()" *ngIf="dialogRef">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="form-columns">
+    <div class="column">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Endereço</mat-label>
+        <input matInput formControlName="address" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Horário</mat-label>
+        <input matInput formControlName="schedule" />
+      </mat-form-field>
+    </div>
+    <div class="column">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Redes sociais</mat-label>
+        <input matInput formControlName="socialMedia" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Atrações</mat-label>
+        <textarea matInput formControlName="attractions"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <label class="address-label">Selecione a localização</label>
+  <div id="selectMap" class="map"></div>
+  <div class="coords">Lat: {{form.value.latitude}} - Lng: {{form.value.longitude}}</div>
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Salvar</button>
+    <button mat-button type="button" (click)="close()" *ngIf="dialogRef">Fechar</button>
+  </div>
+</form>

@@ -89,33 +89,19 @@
         "ENGLISH": "English"
       }
 
-      ,"PET": {
-        "ADD": "Add pet",
-        "MY_RECORDS": "My records",
-        "IMAGE": "Image",
-        "IMAGES": "Images",
-        "STATUS": "Status",
+      ,"FAIR": {
+        "ADD": "Add fair",
         "NAME": "Name",
-        "DATE": "Date",
-        "BREED": "Breed",
-        "SIZE": "Size",
-        "COLOR": "Color",
-        "OBSERVATION": "Observation",
-        "PHONE": "Phone",
-        "SELECT_ADDRESS": "Select the address where the pet was lost or found",
+        "ADDRESS": "Address",
+        "DESCRIPTION": "Description",
+        "SCHEDULE": "Schedule",
+        "SOCIAL_MEDIA": "Social media",
+        "ATTRACTIONS": "Attractions",
+        "SELECT_LOCATION": "Select location",
         "ACTIONS": "Actions",
         "EDIT": "Edit",
-        "REMOVE": "Remove"
-        ,"STATUS_LOST": "Lost"
-        ,"STATUS_FOUND": "Found"
-        ,"SAVE": "Save",
-        "FILTERS_TITLE": "Filters",
-        "FILTER_STATUS": "Filter Status",
-        "FILTER_PERIOD": "Period",
-        "LAST_7_DAYS": "Last 7 days",
-        "LAST_15_DAYS": "Last 15 days",
-        "LAST_30_DAYS": "Last 30 days",
-        "ALL": "All"
+        "REMOVE": "Remove",
+        "SAVE": "Save"
       },
       "FOOTER": {
         "BY": "by jpfurlan"
