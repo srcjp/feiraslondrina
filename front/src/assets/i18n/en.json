@@ -101,8 +101,11 @@
         "ACTIONS": "Actions",
         "EDIT": "Edit",
         "REMOVE": "Remove",
-        "SAVE": "Save"
+      "SAVE": "Save"
       },
+      "MANAGE_FAIRS": "Manage fairs",
+      "NO_FAIRS": "No fairs found",
+      "FILTER_DAY": "Filter by day",
       "FOOTER": {
         "BY": "by jpfurlan"
       },
