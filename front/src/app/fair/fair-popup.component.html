@@ -7,6 +7,7 @@
     <div class="info-item" *ngIf="fair.responsible"><span class="label">{{ 'FAIR.RESPONSIBLE' | translate }}:</span> {{ fair.responsible }}</div>
     <div class="info-item" *ngIf="fair.phone"><span class="label">{{ 'FAIR.PHONE' | translate }}:</span> {{ fair.phone }}</div>
     <div class="info-item" *ngIf="fair.description"><span class="label">{{ 'FAIR.DESCRIPTION' | translate }}:</span> {{ fair.description }}</div>
+    <div class="info-item" *ngIf="fair.attractions"><span class="label">{{ 'FAIR.ATTRACTIONS' | translate }}:</span> {{ fair.attractions }}</div>
     <button mat-button color="primary" [routerLink]="['/fair', fair.id]" class="detail-btn">
       {{ 'FAIR.DETAILS' | translate }}
     </button>
