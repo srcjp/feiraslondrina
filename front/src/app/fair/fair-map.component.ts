@@ -4,19 +4,44 @@ import * as L from 'leaflet';
 import { FairService, Fair } from './fair.service';
 import { RouterModule, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FairPopupComponent } from './fair-popup.component';
 
 @Component({
   selector: 'app-fair-map',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, TranslateModule, FairPopupComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    TranslateModule,
+    FairPopupComponent
+  ],
   templateUrl: './fair-map.component.html',
   styleUrls: ['./fair-map.component.scss']
 })
 export class FairMapComponent implements OnInit {
   private map?: L.Map;
   fairs: Fair[] = [];
+  filtered: Fair[] = [];
+  day = '';
+  markersLayer?: L.LayerGroup;
+  daysOfWeek = [
+    { value: '', label: 'Todos' },
+    { value: 'Domingo', label: 'Domingo' },
+    { value: 'Segunda', label: 'Segunda-feira' },
+    { value: 'Terça', label: 'Terça-feira' },
+    { value: 'Quarta', label: 'Quarta-feira' },
+    { value: 'Quinta', label: 'Quinta-feira' },
+    { value: 'Sexta', label: 'Sexta-feira' },
+    { value: 'Sábado', label: 'Sábado' }
+  ];
 
   constructor(
     private service: FairService,
@@ -32,6 +57,7 @@ export class FairMapComponent implements OnInit {
   ngOnInit() {
     this.service.list().subscribe(fairs => {
       this.fairs = fairs;
+      this.filtered = fairs;
       this.initMap();
     });
   }
@@ -41,20 +67,23 @@ export class FairMapComponent implements OnInit {
       const coords: L.LatLngTuple = [pos.coords.latitude, pos.coords.longitude];
       this.map = L.map('map').setView(coords, 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
+      this.markersLayer = L.layerGroup().addTo(this.map);
       this.loadMarkers();
     }, () => {
       const coords: L.LatLngTuple = [-23.31, -51.17];
       this.map = L.map('map').setView(coords, 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
+      this.markersLayer = L.layerGroup().addTo(this.map);
       this.loadMarkers();
     });
   }
 
   private loadMarkers() {
-    if (!this.map) return;
-    this.fairs.forEach(f => {
+    if (!this.map || !this.markersLayer) return;
+    this.markersLayer.clearLayers();
+    this.filtered.forEach(f => {
       if (f.latitude && f.longitude) {
-        const marker = L.marker([f.latitude, f.longitude]).addTo(this.map!);
+        const marker = L.marker([f.latitude, f.longitude]).addTo(this.markersLayer);
         let compRef: any;
         marker.on('click', () => {
           if (compRef) {
@@ -76,6 +105,16 @@ export class FairMapComponent implements OnInit {
         });
       }
     });
+  }
+
+  applyFilter() {
+    if (!this.day) {
+      this.filtered = this.fairs;
+    } else {
+      const d = this.day.toLowerCase();
+      this.filtered = this.fairs.filter(f => f.schedule?.toLowerCase().includes(d));
+    }
+    this.loadMarkers();
   }
 
   addFair() {

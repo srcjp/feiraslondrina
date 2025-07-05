@@ -1,3 +1,11 @@
+<div class="map-filter">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'FILTER_DAY' | translate }}</mat-label>
+    <mat-select [(ngModel)]="day" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let d of daysOfWeek" [value]="d.value">{{ d.label }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <div id="map" class="map"></div>
 <button mat-fab color="primary" class="add-btn" (click)="addFair()" *ngIf="loggedIn">
   +
