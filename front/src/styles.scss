@@ -37,19 +37,3 @@ input[type="password"] {
   height: 30px;
 }
 
-footer.credits {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #000;
-  color: #fff;
-}
-
-footer.credits a {
-  color: #fff;
-  text-decoration: none;
-}
