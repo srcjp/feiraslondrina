@@ -1,0 +1,42 @@
+<div class="fair-list">
+  <div class="actions">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'FILTER_DAY' | translate }}</mat-label>
+      <mat-select [(ngModel)]="day" (selectionChange)="applyFilter()">
+        <mat-option *ngFor="let d of daysOfWeek" [value]="d.value">
+          {{ d.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" routerLink="/fair/new">
+      {{ 'FAIR.ADD' | translate }}
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="filtered" class="fair-table" *ngIf="filtered.length">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.NAME' | translate }}</th>
+      <td mat-cell *matCellDef="let f">{{ f.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="schedule">
+      <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.SCHEDULE' | translate }}</th>
+      <td mat-cell *matCellDef="let f">{{ f.schedule }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.ACTIONS' | translate }}</th>
+      <td mat-cell *matCellDef="let f">
+        <button mat-icon-button color="primary" [routerLink]="'/fair/' + f.id + '/edit'">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(f.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'schedule', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'schedule', 'actions'];"></tr>
+  </table>
+
+  <p *ngIf="!filtered.length">{{ 'NO_FAIRS' | translate }}</p>
+</div>

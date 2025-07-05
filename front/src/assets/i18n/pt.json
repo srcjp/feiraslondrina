@@ -110,6 +110,9 @@
       "REMOVE": "Remover",
       "SAVE": "Salvar"
     },
+    "MANAGE_FAIRS": "Gerenciar feiras",
+    "NO_FAIRS": "Nenhuma feira cadastrada",
+    "FILTER_DAY": "Filtrar por dia",
     "FOOTER": {
       "BY": "by jpfurlan"
     },
