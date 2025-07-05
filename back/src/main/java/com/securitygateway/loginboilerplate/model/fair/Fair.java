@@ -36,7 +36,7 @@ public class Fair {
     private String phone;
     private String imagePath;
 
-    @OneToMany(mappedBy = "fair", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "fair", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Attraction> attractionList;
 
     @ManyToOne(fetch = FetchType.LAZY)
