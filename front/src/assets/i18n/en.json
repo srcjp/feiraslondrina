@@ -104,7 +104,8 @@
       "RESPONSIBLE": "Responsible",
       "PHONE": "Phone",
       "IMAGE": "Image",
-      "SAVE": "Save"
+      "SAVE": "Save",
+      "DETAILS": "View details >"
       },
       "MANAGE_FAIRS": "Manage fairs",
       "NO_FAIRS": "No fairs found",

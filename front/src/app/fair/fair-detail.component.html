@@ -1,0 +1,21 @@
+<div class="fair-detail" *ngIf="fair">
+  <button mat-button routerLink="/fair">&lt; {{ 'COMMON.CLOSE' | translate }}</button>
+  <h2>{{ fair.name }}</h2>
+  <img *ngIf="fair.imagePath" [src]="fair.imagePath" class="detail-image" />
+  <div class="detail-info">
+    <div *ngIf="fair.address"><strong>{{ 'FAIR.ADDRESS' | translate }}:</strong> {{ fair.address }}</div>
+    <div *ngIf="fair.schedule"><strong>{{ 'FAIR.SCHEDULE' | translate }}:</strong> {{ fair.schedule }}</div>
+    <div *ngIf="fair.responsible"><strong>{{ 'FAIR.RESPONSIBLE' | translate }}:</strong> {{ fair.responsible }}</div>
+    <div *ngIf="fair.phone"><strong>{{ 'FAIR.PHONE' | translate }}:</strong> {{ fair.phone }}</div>
+    <div *ngIf="fair.description"><strong>{{ 'FAIR.DESCRIPTION' | translate }}:</strong> {{ fair.description }}</div>
+  </div>
+  <div class="attractions" *ngIf="attractions.length">
+    <h3>{{ 'FAIR.ATTRACTIONS' | translate }}</h3>
+    <ul>
+      <li *ngFor="let a of attractions">
+        {{ a.name }} - {{ a.specialty }}
+        <a *ngIf="a.socialMedia" [href]="a.socialMedia" target="_blank">{{ a.socialMedia }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
