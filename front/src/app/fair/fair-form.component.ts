@@ -7,6 +7,7 @@ import { FairService, Fair } from './fair.service';
 import * as L from 'leaflet';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,6 +27,7 @@ import { forkJoin } from 'rxjs';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -45,6 +47,15 @@ export class FairFormComponent implements OnInit {
   imageUrl?: string;
   id?: number;
   attractions: Attraction[] = [];
+  daysOfWeek = [
+    'Domingo',
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sábado'
+  ];
 
   constructor(
     private fb: FormBuilder,

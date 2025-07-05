@@ -5,6 +5,7 @@
   <button mat-icon-button type="button" class="close-btn" (click)="close()" *ngIf="dialogRef">
     <mat-icon>close</mat-icon>
   </button>
+  <button mat-button type="button" routerLink="/fair" class="back-btn" *ngIf="!dialogRef">&lt; {{ 'BACK_TO_MAP' | translate }}</button>
   <div class="form-columns">
     <div class="column">
       <mat-form-field appearance="outline" class="full-width">
@@ -24,8 +25,10 @@
         <input matInput formControlName="phone" mask="(00) 00000-0000" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Horário</mat-label>
-        <input matInput formControlName="schedule" />
+        <mat-label>Dia da semana</mat-label>
+        <mat-select formControlName="schedule">
+          <mat-option *ngFor="let d of daysOfWeek" [value]="d">{{ d }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="column">
