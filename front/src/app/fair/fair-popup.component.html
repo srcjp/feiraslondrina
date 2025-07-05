@@ -1,8 +1,11 @@
 <div class="popup-card">
+  <img *ngIf="fair.imagePath" [src]="fair.imagePath" class="popup-image" />
   <div class="popup-info-card">
     <div class="info-item"><span class="label">Nome:</span> {{ fair.name }}</div>
     <div class="info-item" *ngIf="fair.address"><span class="label">Endereço:</span> {{ fair.address }}</div>
     <div class="info-item" *ngIf="fair.schedule"><span class="label">Horário:</span> {{ fair.schedule }}</div>
+    <div class="info-item" *ngIf="fair.responsible"><span class="label">Responsável:</span> {{ fair.responsible }}</div>
+    <div class="info-item" *ngIf="fair.phone"><span class="label">Telefone:</span> {{ fair.phone }}</div>
     <div class="info-item" *ngIf="fair.description"><span class="label">Descrição:</span> {{ fair.description }}</div>
   </div>
 </div>

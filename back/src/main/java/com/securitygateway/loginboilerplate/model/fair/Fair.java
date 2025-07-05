@@ -30,6 +30,9 @@ public class Fair {
     private String schedule;
     private String socialMedia;
     private String attractions;
+    private String responsible;
+    private String phone;
+    private String imagePath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

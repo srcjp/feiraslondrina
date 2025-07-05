@@ -6,16 +6,22 @@ import com.securitygateway.loginboilerplate.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class FairService {
     private final FairRepository repository;
+    private final ImageResizeService imageService;
 
-    public Fair saveFair(Fair fair, User user) {
+    public Fair saveFair(Fair fair, MultipartFile image, User user) throws IOException {
+        if (image != null && !image.isEmpty()) {
+            fair.setImagePath(imageService.resizeAndSave(image));
+        }
         fair.setUser(user);
         fair.setCreatedAt(LocalDateTime.now());
         return repository.save(fair);
@@ -36,7 +42,7 @@ public class FairService {
         return repository.findById(id).orElseThrow();
     }
 
-    public Fair updateFair(Long id, Fair data, User user) {
+    public Fair updateFair(Long id, Fair data, MultipartFile image, User user) throws IOException {
         Fair existing = repository.findById(id).orElseThrow();
         if(!existing.getUser().getId().equals(user.getId())) return existing;
 
@@ -48,6 +54,11 @@ public class FairService {
         existing.setSchedule(data.getSchedule());
         existing.setSocialMedia(data.getSocialMedia());
         existing.setAttractions(data.getAttractions());
+        existing.setResponsible(data.getResponsible());
+        existing.setPhone(data.getPhone());
+        if (image != null && !image.isEmpty()) {
+            existing.setImagePath(imageService.resizeAndSave(image));
+        }
 
         return repository.save(existing);
     }
