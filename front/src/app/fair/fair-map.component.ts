@@ -55,14 +55,25 @@ export class FairMapComponent implements OnInit {
     this.fairs.forEach(f => {
       if (f.latitude && f.longitude) {
         const marker = L.marker([f.latitude, f.longitude]).addTo(this.map!);
-        const popupHost = document.createElement('div');
-        const compRef = this.vcr.createComponent(FairPopupComponent, {
-          environmentInjector: this.injector
+        let compRef: any;
+        marker.on('click', () => {
+          if (compRef) {
+            compRef.destroy();
+          }
+          const popupHost = document.createElement('div');
+          compRef = this.vcr.createComponent(FairPopupComponent, {
+            environmentInjector: this.injector
+          });
+          compRef.instance.fair = f;
+          popupHost.appendChild(compRef.location.nativeElement);
+          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 260 }).openPopup();
         });
-        compRef.instance.fair = f;
-        popupHost.appendChild(compRef.location.nativeElement);
-        marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 260 });
-        marker.on('popupclose', () => compRef.destroy());
+        marker.on('popupclose', () => {
+          if (compRef) {
+            compRef.destroy();
+            compRef = null;
+          }
+        });
       }
     });
   }
