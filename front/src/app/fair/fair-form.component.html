@@ -43,19 +43,19 @@
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Nome</th>
             <td mat-cell *matCellDef="let a; let i = index">
-              <input matInput [(ngModel)]="a.name" name="name{{i}}" />
+              <input matInput [(ngModel)]="a.name" name="name{{i}}" [ngModelOptions]="{standalone: true}" />
             </td>
           </ng-container>
           <ng-container matColumnDef="specialty">
             <th mat-header-cell *matHeaderCellDef>Especialidade</th>
             <td mat-cell *matCellDef="let a; let i = index">
-              <input matInput [(ngModel)]="a.specialty" name="spec{{i}}" />
+              <input matInput [(ngModel)]="a.specialty" name="spec{{i}}" [ngModelOptions]="{standalone: true}" />
             </td>
           </ng-container>
           <ng-container matColumnDef="socialMedia">
             <th mat-header-cell *matHeaderCellDef>Rede social</th>
             <td mat-cell *matCellDef="let a; let i = index">
-              <input matInput [(ngModel)]="a.socialMedia" name="soc{{i}}" />
+              <input matInput [(ngModel)]="a.socialMedia" name="soc{{i}}" [ngModelOptions]="{standalone: true}" />
             </td>
           </ng-container>
           <ng-container matColumnDef="actions">
