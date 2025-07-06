@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewContainerRef, EnvironmentInjector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+  iconUrl: 'assets/leaflet/marker-icon.png',
+  shadowUrl: 'assets/leaflet/marker-shadow.png'
+});
 import { FairService, Fair } from './fair.service';
 import { RouterModule, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -89,13 +95,15 @@ export class FairMapComponent implements OnInit {
           if (compRef) {
             compRef.destroy();
           }
+          marker.unbindPopup();
           const popupHost = document.createElement('div');
           compRef = this.vcr.createComponent(FairPopupComponent, {
             environmentInjector: this.injector
           });
           compRef.instance.fair = f;
           popupHost.appendChild(compRef.location.nativeElement);
-          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 300 }).openPopup();
+          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 300 });
+          marker.openPopup();
         });
         marker.on('popupclose', () => {
           if (compRef) {
