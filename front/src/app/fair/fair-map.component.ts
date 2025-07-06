@@ -1,23 +1,29 @@
-import { Component, OnInit, ViewContainerRef, EnvironmentInjector } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import * as L from 'leaflet';
+import {
+  Component,
+  OnInit,
+  ViewContainerRef,
+  EnvironmentInjector,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import * as L from "leaflet";
+import Supercluster from "supercluster";
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
-  iconUrl: 'assets/leaflet/marker-icon.png',
-  shadowUrl: 'assets/leaflet/marker-shadow.png'
+  iconRetinaUrl: "assets/leaflet/marker-icon-2x.png",
+  iconUrl: "assets/leaflet/marker-icon.png",
+  shadowUrl: "assets/leaflet/marker-shadow.png",
 });
-import { FairService, Fair } from './fair.service';
-import { RouterModule, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { FairPopupComponent } from './fair-popup.component';
+import { FairService, Fair } from "./fair.service";
+import { RouterModule, Router } from "@angular/router";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule } from "@angular/forms";
+import { TranslateModule } from "@ngx-translate/core";
+import { FairPopupComponent } from "./fair-popup.component";
 
 @Component({
-  selector: 'app-fair-map',
+  selector: "app-fair-map",
   standalone: true,
   imports: [
     CommonModule,
@@ -27,41 +33,42 @@ import { FairPopupComponent } from './fair-popup.component';
     MatSelectModule,
     MatButtonModule,
     TranslateModule,
-    FairPopupComponent
+    FairPopupComponent,
   ],
-  templateUrl: './fair-map.component.html',
-  styleUrls: ['./fair-map.component.scss']
+  templateUrl: "./fair-map.component.html",
+  styleUrls: ["./fair-map.component.scss"],
 })
 export class FairMapComponent implements OnInit {
   private map?: L.Map;
+  private cluster?: Supercluster<{ fair: Fair }>;
+  private clusterLayer = L.layerGroup();
   fairs: Fair[] = [];
   filtered: Fair[] = [];
-  day = '';
-  markersLayer?: L.LayerGroup;
+  day = "";
   daysOfWeek = [
-    { value: '', label: 'Todos' },
-    { value: 'Domingo', label: 'Domingo' },
-    { value: 'Segunda', label: 'Segunda-feira' },
-    { value: 'Terça', label: 'Terça-feira' },
-    { value: 'Quarta', label: 'Quarta-feira' },
-    { value: 'Quinta', label: 'Quinta-feira' },
-    { value: 'Sexta', label: 'Sexta-feira' },
-    { value: 'Sábado', label: 'Sábado' }
+    { value: "", label: "Todos" },
+    { value: "Domingo", label: "Domingo" },
+    { value: "Segunda", label: "Segunda-feira" },
+    { value: "Terça", label: "Terça-feira" },
+    { value: "Quarta", label: "Quarta-feira" },
+    { value: "Quinta", label: "Quinta-feira" },
+    { value: "Sexta", label: "Sexta-feira" },
+    { value: "Sábado", label: "Sábado" },
   ];
 
   constructor(
     private service: FairService,
     private router: Router,
     private vcr: ViewContainerRef,
-    private injector: EnvironmentInjector
+    private injector: EnvironmentInjector,
   ) {}
 
   get loggedIn(): boolean {
-    return !!localStorage.getItem('accessToken');
+    return !!localStorage.getItem("accessToken");
   }
 
   ngOnInit() {
-    this.service.list().subscribe(fairs => {
+    this.service.list().subscribe((fairs) => {
       this.fairs = fairs;
       this.filtered = fairs;
       this.initMap();
@@ -69,50 +76,94 @@ export class FairMapComponent implements OnInit {
   }
 
   private initMap() {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const coords: L.LatLngTuple = [pos.coords.latitude, pos.coords.longitude];
-      this.map = L.map('map').setView(coords, 13);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
-      this.markersLayer = L.layerGroup().addTo(this.map);
-      this.loadMarkers();
-    }, () => {
-      const coords: L.LatLngTuple = [-23.31, -51.17];
-      this.map = L.map('map').setView(coords, 13);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
-      this.markersLayer = L.layerGroup().addTo(this.map);
-      this.loadMarkers();
-    });
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const coords: L.LatLngTuple = [
+          pos.coords.latitude,
+          pos.coords.longitude,
+        ];
+        this.map = L.map("map").setView(coords, 13);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+        }).addTo(this.map);
+        this.map.addLayer(this.clusterLayer);
+        this.buildCluster();
+        this.updateClusters();
+        this.map.on("moveend zoomend", () => this.updateClusters());
+      },
+      () => {
+        const coords: L.LatLngTuple = [-23.31, -51.17];
+        this.map = L.map("map").setView(coords, 13);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+        }).addTo(this.map);
+        this.map.addLayer(this.clusterLayer);
+        this.buildCluster();
+        this.updateClusters();
+        this.map.on("moveend zoomend", () => this.updateClusters());
+      },
+    );
   }
 
-  private loadMarkers() {
-    if (!this.map || !this.markersLayer) return;
-    this.markersLayer.clearLayers();
-    this.filtered.forEach(f => {
-      if (f.latitude && f.longitude) {
-        const marker = L.marker([f.latitude, f.longitude]).addTo(this.markersLayer!);
-        let compRef: any;
-        marker.on('click', () => {
-          if (compRef) {
-            compRef.destroy();
-          }
-          marker.unbindPopup();
-          const popupHost = document.createElement('div');
-          compRef = this.vcr.createComponent(FairPopupComponent, {
-            environmentInjector: this.injector
+  private buildCluster() {
+    const points = this.filtered
+      .filter((f) => f.latitude && f.longitude)
+      .map((f) => ({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [f.longitude!, f.latitude!] },
+        properties: { fair: f },
+      }));
+
+    this.cluster = new Supercluster({ radius: 40, maxZoom: 18 });
+    this.cluster.load(points as any);
+  }
+
+  private updateClusters() {
+    if (!this.map || !this.cluster) return;
+    this.clusterLayer.clearLayers();
+    const bounds = this.map.getBounds();
+    const zoom = this.map.getZoom();
+    const bbox: [number, number, number, number] = [
+      bounds.getWest(),
+      bounds.getSouth(),
+      bounds.getEast(),
+      bounds.getNorth(),
+    ];
+    const clusters = this.cluster.getClusters(bbox, zoom);
+    for (const c of clusters) {
+      const [lng, lat] = c.geometry.coordinates as [number, number];
+      if ((c.properties as any).cluster) {
+        const count = (c.properties as any).point_count as number;
+        const marker = L.marker([lat, lng], {
+          icon: L.divIcon({
+            html: `<div class="cluster-icon">${count}</div>`,
+            className: "",
+            iconSize: [30, 30],
+          }),
+        });
+        marker.on("click", () => {
+          if (c.id === undefined) return;
+          const expansionZoom = this.cluster!.getClusterExpansionZoom(+c.id);
+          this.map!.setView([lat, lng], expansionZoom);
+        });
+        this.clusterLayer.addLayer(marker);
+      } else {
+        const fair = (c.properties as any).fair as Fair;
+        const marker = L.marker([lat, lng]);
+        marker.bindPopup("", { className: "fair-popup", maxWidth: 300 });
+        marker.on("popupopen", () => {
+          const popupHost = document.createElement("div");
+          const compRef = this.vcr.createComponent(FairPopupComponent, {
+            environmentInjector: this.injector,
           });
-          compRef.instance.fair = f;
+          compRef.instance.fair = fair;
           popupHost.appendChild(compRef.location.nativeElement);
-          marker.bindPopup(popupHost, { className: 'fair-popup', maxWidth: 300 });
-          marker.openPopup();
+          marker.setPopupContent(popupHost);
+          marker.once("popupclose", () => compRef.destroy());
         });
-        marker.on('popupclose', () => {
-          if (compRef) {
-            compRef.destroy();
-            compRef = null;
-          }
-        });
+        this.clusterLayer.addLayer(marker);
       }
-    });
+    }
   }
 
   applyFilter() {
@@ -120,12 +171,15 @@ export class FairMapComponent implements OnInit {
       this.filtered = this.fairs;
     } else {
       const d = this.day.toLowerCase();
-      this.filtered = this.fairs.filter(f => f.schedule?.toLowerCase().includes(d));
+      this.filtered = this.fairs.filter((f) =>
+        f.schedule?.toLowerCase().includes(d),
+      );
     }
-    this.loadMarkers();
+    this.buildCluster();
+    this.updateClusters();
   }
 
   addFair() {
-    this.router.navigate(['/fair/new']);
+    this.router.navigate(["/fair/new"]);
   }
 }
