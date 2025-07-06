@@ -3,6 +3,7 @@ package com.securitygateway.loginboilerplate.model.fair;
 import com.securitygateway.loginboilerplate.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.securitygateway.loginboilerplate.model.fair.Attraction;
+import com.securitygateway.loginboilerplate.model.fair.FairType;
 import java.util.List;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,9 @@ public class Fair {
     private String attractions;
     private String responsible;
     private String phone;
+
+    @Enumerated(EnumType.STRING)
+    private FairType type;
     private String imagePath;
 
     @OneToMany(mappedBy = "fair", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

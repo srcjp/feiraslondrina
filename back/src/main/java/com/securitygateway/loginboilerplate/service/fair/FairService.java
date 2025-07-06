@@ -57,6 +57,7 @@ public class FairService {
         existing.setAttractions(data.getAttractions());
         existing.setResponsible(data.getResponsible());
         existing.setPhone(data.getPhone());
+        existing.setType(data.getType());
         if (image != null && !image.isEmpty()) {
             existing.setImagePath(imageService.resizeAndSave(image));
         }

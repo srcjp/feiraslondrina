@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environmet/environment';
 import { Observable, map } from 'rxjs';
 
+export enum FairType {
+  FESTA_JUNINA = 'FESTA_JUNINA',
+  PASTEL = 'PASTEL',
+  FEIRA_DA_LUA = 'FEIRA_DA_LUA',
+  FEIRA_GENERICA = 'FEIRA_GENERICA'
+}
+
 export interface Fair {
   id?: number;
   name: string;
@@ -16,6 +23,7 @@ export interface Fair {
   attractions?: string;
   responsible?: string;
   phone?: string;
+  type?: FairType;
   imagePath?: string;
   createdAt?: string;
 }

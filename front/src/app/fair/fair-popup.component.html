@@ -5,6 +5,7 @@
     <div class="info-item" *ngIf="fair.address"><span class="label">{{ 'FAIR.ADDRESS' | translate }}:</span> {{ fair.address }}</div>
   <div class="info-item" *ngIf="fair.schedule"><span class="label">{{ 'FAIR.SCHEDULE' | translate }}:</span> {{ fair.schedule }}</div>
   <div class="info-item" *ngIf="fair.openingHours"><span class="label">{{ 'FAIR.OPENING_HOURS' | translate }}:</span> {{ fair.openingHours }}</div>
+  <div class="info-item" *ngIf="fair.type"><span class="label">{{ 'FAIR.TYPE' | translate }}:</span> {{ ('FAIR.TYPE_' + fair.type) | translate }}</div>
   <div class="info-item" *ngIf="fair.responsible"><span class="label">{{ 'FAIR.RESPONSIBLE' | translate }}:</span> {{ fair.responsible }}</div>
     <div class="info-item" *ngIf="fair.phone"><span class="label">{{ 'FAIR.PHONE' | translate }}:</span> {{ fair.phone }}</div>
     <div class="info-item" *ngIf="fair.description"><span class="label">{{ 'FAIR.DESCRIPTION' | translate }}:</span> {{ fair.description }}</div>
