@@ -52,6 +52,7 @@ public class FairService {
         existing.setAddress(data.getAddress());
         existing.setDescription(data.getDescription());
         existing.setSchedule(data.getSchedule());
+        existing.setOpeningHours(data.getOpeningHours());
         existing.setSocialMedia(data.getSocialMedia());
         existing.setAttractions(data.getAttractions());
         existing.setResponsible(data.getResponsible());

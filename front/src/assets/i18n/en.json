@@ -95,6 +95,7 @@
         "ADDRESS": "Address",
         "DESCRIPTION": "Description",
         "SCHEDULE": "Schedule",
+        "OPENING_HOURS": "Opening hours",
         "SOCIAL_MEDIA": "Social media",
         "ATTRACTIONS": "Attractions",
         "SELECT_LOCATION": "Select location",

@@ -5,6 +5,12 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FairService, Fair } from './fair.service';
 import * as L from 'leaflet';
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+  iconUrl: 'assets/leaflet/marker-icon.png',
+  shadowUrl: 'assets/leaflet/marker-shadow.png'
+});
+L.Icon.Default.imagePath = 'assets/leaflet/';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -71,6 +77,7 @@ export class FairFormComponent implements OnInit {
       address: [''],
       description: [''],
       schedule: [''],
+      openingHours: [''],
       socialMedia: [''],
       responsible: [''],
       phone: [''],

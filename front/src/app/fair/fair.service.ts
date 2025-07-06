@@ -11,6 +11,7 @@ export interface Fair {
   address?: string;
   description?: string;
   schedule?: string;
+  openingHours?: string;
   socialMedia?: string;
   attractions?: string;
   responsible?: string;

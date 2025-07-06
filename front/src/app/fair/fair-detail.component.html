@@ -8,6 +8,7 @@
     <div class="detail-info">
       <div *ngIf="fair.address"><strong>{{ 'FAIR.ADDRESS' | translate }}:</strong> {{ fair.address }}</div>
       <div *ngIf="fair.schedule"><strong>{{ 'FAIR.SCHEDULE' | translate }}:</strong> {{ fair.schedule }}</div>
+      <div *ngIf="fair.openingHours"><strong>{{ 'FAIR.OPENING_HOURS' | translate }}:</strong> {{ fair.openingHours }}</div>
       <div *ngIf="fair.socialMedia">
         <strong>{{ 'FAIR.SOCIAL_MEDIA' | translate }}:</strong>
         <a [href]="fair.socialMedia" target="_blank">{{ fair.socialMedia }}</a>

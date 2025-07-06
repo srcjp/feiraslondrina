@@ -31,6 +31,10 @@
       <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.SCHEDULE' | translate }}</th>
       <td mat-cell *matCellDef="let f">{{ f.schedule }}</td>
     </ng-container>
+    <ng-container matColumnDef="openingHours">
+      <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.OPENING_HOURS' | translate }}</th>
+      <td mat-cell *matCellDef="let f">{{ f.openingHours }}</td>
+    </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.ACTIONS' | translate }}</th>
       <td mat-cell *matCellDef="let f">
@@ -43,8 +47,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['name','responsible','phone','schedule','actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['name','responsible','phone','schedule','actions'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['name','responsible','phone','schedule','openingHours','actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name','responsible','phone','schedule','openingHours','actions'];"></tr>
   </table>
 
   <p *ngIf="!filtered.length">{{ 'NO_FAIRS' | translate }}</p>

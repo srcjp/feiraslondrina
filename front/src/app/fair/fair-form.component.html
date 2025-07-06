@@ -25,6 +25,10 @@
         <input matInput formControlName="phone" mask="(00) 00000-0000" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Horário de funcionamento</mat-label>
+        <input matInput formControlName="openingHours" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Dia da semana</mat-label>
         <mat-select formControlName="schedule">
           <mat-option *ngFor="let d of daysOfWeek" [value]="d">{{ d }}</mat-option>
