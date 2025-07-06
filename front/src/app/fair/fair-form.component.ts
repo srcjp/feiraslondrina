@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FairService, Fair } from './fair.service';
+import { FairService, Fair, FairType } from './fair.service';
 import * as L from 'leaflet';
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
@@ -53,6 +53,7 @@ export class FairFormComponent implements OnInit {
   imageUrl?: string;
   id?: number;
   attractions: Attraction[] = [];
+  types = Object.values(FairType);
   daysOfWeek = [
     'Domingo',
     'Segunda',
@@ -81,6 +82,7 @@ export class FairFormComponent implements OnInit {
       socialMedia: [''],
       responsible: [''],
       phone: [''],
+      type: [FairType.FEIRA_GENERICA],
       latitude: [null, Validators.required],
       longitude: [null, Validators.required]
     });

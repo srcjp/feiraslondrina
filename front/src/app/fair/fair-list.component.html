@@ -27,6 +27,10 @@
       <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.PHONE' | translate }}</th>
       <td mat-cell *matCellDef="let f">{{ f.phone }}</td>
     </ng-container>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.TYPE' | translate }}</th>
+      <td mat-cell *matCellDef="let f">{{ ('FAIR.TYPE_' + f.type) | translate }}</td>
+    </ng-container>
     <ng-container matColumnDef="schedule">
       <th mat-header-cell *matHeaderCellDef>{{ 'FAIR.SCHEDULE' | translate }}</th>
       <td mat-cell *matCellDef="let f">{{ f.schedule }}</td>
@@ -47,8 +51,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['name','responsible','phone','schedule','openingHours','actions']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['name','responsible','phone','schedule','openingHours','actions'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['name','responsible','phone','type','schedule','openingHours','actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name','responsible','phone','type','schedule','openingHours','actions'];"></tr>
   </table>
 
   <p *ngIf="!filtered.length">{{ 'NO_FAIRS' | translate }}</p>

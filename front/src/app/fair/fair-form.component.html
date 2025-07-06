@@ -25,6 +25,12 @@
         <input matInput formControlName="phone" mask="(00) 00000-0000" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of types" [value]="t">{{ 'FAIR.TYPE_' + t | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Horário de funcionamento</mat-label>
         <input matInput formControlName="openingHours" />
       </mat-form-field>
