@@ -30,6 +30,7 @@ public class Fair {
     private String address;
     private String description;
     private String schedule;
+    private String openingHours;
     private String socialMedia;
     private String attractions;
     private String responsible;
