@@ -7,7 +7,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: 'assets/leaflet/marker-icon.png',
   shadowUrl: 'assets/leaflet/marker-shadow.png'
 });
-L.Icon.Default.imagePath = 'assets/leaflet/';
 import { FairService, Fair } from './fair.service';
 import { RouterModule, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
