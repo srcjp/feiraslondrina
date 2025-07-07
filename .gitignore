@@ -1,0 +1,14 @@
+# Global ignores
+.DS_Store
+*.log
+
+# Dependency directories
+node_modules/
+target/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment
+.env
