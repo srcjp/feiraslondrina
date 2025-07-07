@@ -40,7 +40,7 @@ import { FairPopupComponent } from "./fair-popup.component";
 })
 export class FairMapComponent implements OnInit {
   private map?: L.Map;
-  private cluster?: Supercluster<{ fair: Fair }>;
+  private cluster?: any;
   private clusterLayer = L.layerGroup();
   fairs: Fair[] = [];
   filtered: Fair[] = [];
