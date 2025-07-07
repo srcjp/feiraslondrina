@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
   iconUrl: "assets/leaflet/marker-icon.png",
   shadowUrl: "assets/leaflet/marker-shadow.png",
 });
-import { FairService, Fair } from "./fair.service";
+import { FairService, Fair, FairType } from "./fair.service";
 import { RouterModule, Router } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
@@ -62,6 +62,31 @@ export class FairMapComponent implements OnInit {
     private vcr: ViewContainerRef,
     private injector: EnvironmentInjector,
   ) {}
+
+  private getIcon(type?: FairType): L.Icon {
+    let icon = 'assets/leaflet/feiragenerica.png';
+    switch (type) {
+      case FairType.FESTA_JUNINA:
+        icon = 'assets/leaflet/festajunina.png';
+        break;
+      case FairType.PASTEL:
+        icon = 'assets/leaflet/pastel.png';
+        break;
+      case FairType.FEIRA_DA_LUA:
+        icon = 'assets/leaflet/feiradalua.png';
+        break;
+      case FairType.FEIRA_GENERICA:
+        icon = 'assets/leaflet/feiragenerica.png';
+        break;
+    }
+    return L.icon({
+      iconUrl: icon,
+      iconSize: [50, 82],
+      iconAnchor: [25, 82],
+      popupAnchor: [0, -82],
+      shadowUrl: 'assets/leaflet/marker-shadow.png',
+    });
+  }
 
   get loggedIn(): boolean {
     return !!localStorage.getItem("accessToken");
@@ -149,7 +174,7 @@ export class FairMapComponent implements OnInit {
         this.clusterLayer.addLayer(marker);
       } else {
         const fair = (c.properties as any).fair as Fair;
-        const marker = L.marker([lat, lng]);
+        const marker = L.marker([lat, lng], { icon: this.getIcon(fair.type) });
         marker.bindPopup("", { className: "fair-popup", maxWidth: 300 });
         marker.on("popupopen", () => {
           const popupHost = document.createElement("div");
