@@ -18,7 +18,7 @@
       <div *ngIf="fair.phone"><strong>{{ 'FAIR.PHONE' | translate }}:</strong> {{ fair.phone }}</div>
       <div *ngIf="fair.description"><strong>{{ 'FAIR.DESCRIPTION' | translate }}:</strong> {{ fair.description }}</div>
     </div>
-    <div class="attractions" *ngIf="attractions.length">
+    <div class="attractions" *ngIf="attractions.length; else noAttr">
       <h3>{{ 'FAIR.ATTRACTIONS' | translate }}</h3>
       <table class="attractions-table">
         <thead>
@@ -38,6 +38,14 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <ng-template #noAttr>
+      <p>{{ 'NO_ATTRACTIONS' | translate }}</p>
+    </ng-template>
+    <div class="actions">
+      <button mat-raised-button color="primary" [routerLink]="['/fair', fair.id, 'edit']">
+        {{ 'EDIT' | translate }}
+      </button>
     </div>
   </mat-card>
 </div>
