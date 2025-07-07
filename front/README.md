@@ -64,6 +64,26 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Analytics configuration
+
+This application supports Google Analytics and Microsoft Clarity. To enable
+tracking, edit the environment configuration files and provide your tracking IDs:
+
+```
+src/environmet/environment.ts        # development
+src/environmet/environment.prod.ts   # production
+```
+
+Both files contain `gaMeasurementId` and `clarityProjectId` properties. Fill them
+with your **Google Analytics measurement ID** and **Clarity project ID**.
+
+After updating the values, rebuild the project so the analytics scripts are
+included when the application loads.
+
+The free tiers of Google Analytics and Microsoft Clarity allow you to collect
+page views and event metrics, create heat maps, and review session recordings to
+better understand user behavior.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
