@@ -95,16 +95,19 @@ export class FairFormComponent implements OnInit {
     const paramId = this.id ?? this.route.snapshot.paramMap.get('id');
     if (paramId) {
       this.id = +paramId;
-      this.service.get(this.id).subscribe(f => {
-        this.form.patchValue(f);
-        if (f.latitude && f.longitude) {
-          this.setMarker([f.latitude, f.longitude]);
+      forkJoin({
+        fair: this.service.get(this.id),
+        attractions: this.attractionService.listByFair(this.id)
+      }).subscribe(({ fair, attractions }) => {
+        this.form.patchValue(fair);
+        if (fair.latitude && fair.longitude) {
+          this.setMarker([fair.latitude, fair.longitude]);
         }
-        if (f.imagePath) {
-          this.imageUrl = f.imagePath;
+        if (fair.imagePath) {
+          this.imageUrl = fair.imagePath;
         }
+        this.attractions = attractions;
       });
-      this.attractionService.listByFair(this.id).subscribe(list => (this.attractions = list));
     }
     this.initMap();
   }
