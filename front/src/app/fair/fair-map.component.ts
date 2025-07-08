@@ -20,6 +20,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material/icon";
 import { TranslateModule } from "@ngx-translate/core";
 import { FairPopupComponent } from "./fair-popup.component";
 
@@ -34,6 +35,7 @@ import { FairPopupComponent } from "./fair-popup.component";
     MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatIconModule,
     TranslateModule,
   ],
   templateUrl: "./fair-map.component.html",
@@ -59,6 +61,8 @@ export class FairMapComponent implements OnInit {
 
   types = Object.values(FairType);
   selectedTypes: FairType[] = [...this.types];
+  isMobile = false;
+  filtersVisible = true;
 
   constructor(
     private service: FairService,
@@ -111,6 +115,8 @@ export class FairMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isMobile = window.innerWidth <= 600;
+    this.filtersVisible = !this.isMobile;
     this.service.list().subscribe((fairs) => {
       this.fairs = fairs;
       this.filtered = fairs;
@@ -229,6 +235,10 @@ export class FairMapComponent implements OnInit {
       this.selectedTypes = this.selectedTypes.filter((t) => t !== type);
     }
     this.applyFilter();
+  }
+
+  toggleFilters() {
+    this.filtersVisible = !this.filtersVisible;
   }
 
   addFair() {
