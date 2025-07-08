@@ -45,6 +45,8 @@ export class FairMapComponent implements OnInit {
   private map?: L.Map;
   private cluster?: any;
   private clusterLayer = L.layerGroup();
+  private markerMap = new Map<number, L.Marker>();
+  private pendingFairId?: number;
   fairs: Fair[] = [];
   filtered: Fair[] = [];
   day = "";
@@ -139,6 +141,13 @@ export class FairMapComponent implements OnInit {
         this.buildCluster();
         this.updateClusters();
         this.map.on("moveend zoomend", () => this.updateClusters());
+        this.map.on("moveend", () => {
+          if (this.pendingFairId !== undefined) {
+            const m = this.markerMap.get(this.pendingFairId);
+            m?.openPopup();
+            this.pendingFairId = undefined;
+          }
+        });
       },
       () => {
         const coords: L.LatLngTuple = [-23.31, -51.17];
@@ -150,6 +159,13 @@ export class FairMapComponent implements OnInit {
         this.buildCluster();
         this.updateClusters();
         this.map.on("moveend zoomend", () => this.updateClusters());
+        this.map.on("moveend", () => {
+          if (this.pendingFairId !== undefined) {
+            const m = this.markerMap.get(this.pendingFairId);
+            m?.openPopup();
+            this.pendingFairId = undefined;
+          }
+        });
       },
     );
   }
@@ -170,6 +186,7 @@ export class FairMapComponent implements OnInit {
   private updateClusters() {
     if (!this.map || !this.cluster) return;
     this.clusterLayer.clearLayers();
+    this.markerMap.clear();
     const bounds = this.map.getBounds();
     const zoom = this.map.getZoom();
     const bbox: [number, number, number, number] = [
@@ -199,8 +216,10 @@ export class FairMapComponent implements OnInit {
       } else {
         const fair = (c.properties as any).fair as Fair;
         const marker = L.marker([lat, lng], { icon: this.getIcon(fair.type) });
+        this.markerMap.set(fair.id!, marker);
         if (this.isMobile) {
           marker.on('click', () => {
+            this.pendingFairId = fair.id;
             this.map?.setView([lat, lng], this.map.getZoom());
           });
         }
