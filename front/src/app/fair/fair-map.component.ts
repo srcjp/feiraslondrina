@@ -143,9 +143,10 @@ export class FairMapComponent implements OnInit {
         this.map.on("moveend zoomend", () => this.updateClusters());
         this.map.on("moveend", () => {
           if (this.pendingFairId !== undefined) {
-            const m = this.markerMap.get(this.pendingFairId);
-            m?.openPopup();
+            const id = this.pendingFairId;
             this.pendingFairId = undefined;
+            const m = this.markerMap.get(id);
+            m?.openPopup();
           }
         });
       },
@@ -161,9 +162,10 @@ export class FairMapComponent implements OnInit {
         this.map.on("moveend zoomend", () => this.updateClusters());
         this.map.on("moveend", () => {
           if (this.pendingFairId !== undefined) {
-            const m = this.markerMap.get(this.pendingFairId);
-            m?.openPopup();
+            const id = this.pendingFairId;
             this.pendingFairId = undefined;
+            const m = this.markerMap.get(id);
+            m?.openPopup();
           }
         });
       },
