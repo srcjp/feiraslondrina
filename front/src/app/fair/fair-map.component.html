@@ -7,5 +7,17 @@
         <mat-option *ngFor="let d of daysOfWeek" [value]="d.value">{{ d.label }}</mat-option>
       </mat-select>
     </mat-form-field>
+    <div class="type-filter">
+      <label>{{ 'FILTER_TYPE' | translate }}</label>
+      <mat-checkbox
+        *ngFor="let t of types"
+        [checked]="selectedTypes.includes(t)"
+        (change)="toggleType(t, $event.checked)"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <img [src]="iconUrl(t)" class="type-icon" />
+        {{ ('FAIR.TYPE_' + t) | translate }}
+      </mat-checkbox>
+    </div>
   </div>
 </div>
