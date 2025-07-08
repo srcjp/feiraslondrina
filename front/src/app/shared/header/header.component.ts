@@ -4,10 +4,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ContributeDialogComponent } from '../contribute-dialog.component';
 import { HowToUseDialogComponent } from '../how-to-use-dialog.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +19,8 @@ import { HowToUseDialogComponent } from '../how-to-use-dialog.component';
     MatIconModule,
     TranslateModule,
     RouterModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
@@ -27,7 +28,7 @@ import { HowToUseDialogComponent } from '../how-to-use-dialog.component';
 export class HeaderComponent {
   currentLang!: string;
 
-  constructor(private translate: TranslateService, private dialog: MatDialog) {
+  constructor(private translate: TranslateService, private dialog: MatDialog,  private router: Router,) {
     this.translate.addLangs(['pt','en']);
 
     const saved = localStorage.getItem('lang');
@@ -62,5 +63,9 @@ export class HeaderComponent {
 
   openHowToUse() {
     this.dialog.open(HowToUseDialogComponent, { maxWidth: '560px' });
+  }
+
+  gohome(){
+    this.router.navigate(['/fair']);
   }
 }
