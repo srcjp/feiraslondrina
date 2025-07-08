@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: JwtRefresh
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  backend:
+    build:
+      context: ./back
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/JwtRefresh
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - internal
+      - proxy
+    expose:
+      - "8080"
+    labels:
+      - "com.github.nginx-proxy.nginx=nginx-proxy"
+      - "VIRTUAL_HOST=${BACK_DOMAIN}"
+      - "LETSENCRYPT_HOST=${BACK_DOMAIN}"
+      - "LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}"
+
+  frontend:
+    build:
+      context: ./front
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - internal
+      - proxy
+    expose:
+      - "80"
+    labels:
+      - "com.github.nginx-proxy.nginx=nginx-proxy"
+      - "VIRTUAL_HOST=${FRONT_DOMAIN}"
+      - "LETSENCRYPT_HOST=${FRONT_DOMAIN}"
+      - "LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}"
+
+networks:
+  internal:
+  proxy:
+    external: true
+
+volumes:
+  db-data:
