@@ -225,7 +225,11 @@ export class FairMapComponent implements OnInit {
             this.map?.setView([lat, lng], this.map.getZoom());
           });
         }
-        marker.bindPopup("", { className: "fair-popup", maxWidth: 300 });
+        marker.bindPopup("", {
+          className: "fair-popup",
+          maxWidth: 300,
+          autoPan: false,
+        });
         marker.on("popupopen", () => {
           const popupHost = document.createElement("div");
           const compRef = this.vcr.createComponent(FairPopupComponent, {
