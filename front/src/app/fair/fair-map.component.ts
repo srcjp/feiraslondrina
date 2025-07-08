@@ -199,6 +199,11 @@ export class FairMapComponent implements OnInit {
       } else {
         const fair = (c.properties as any).fair as Fair;
         const marker = L.marker([lat, lng], { icon: this.getIcon(fair.type) });
+        if (this.isMobile) {
+          marker.on('click', () => {
+            this.map?.setView([lat, lng], this.map.getZoom());
+          });
+        }
         marker.bindPopup("", { className: "fair-popup", maxWidth: 300 });
         marker.on("popupopen", () => {
           const popupHost = document.createElement("div");
