@@ -1,16 +1,18 @@
 <div class="popup-card">
   <img *ngIf="fair.imagePath" [src]="fair.imagePath" class="popup-image" />
+
   <div class="popup-info-card">
-    <div class="info-item"><span class="label">{{ 'FAIR.NAME' | translate }}:</span> {{ fair.name }}</div>
-    <div class="info-item" *ngIf="fair.address"><span class="label">{{ 'FAIR.ADDRESS' | translate }}:</span> {{ fair.address }}</div>
-  <div class="info-item" *ngIf="fair.schedule"><span class="label">{{ 'FAIR.SCHEDULE' | translate }}:</span> {{ fair.schedule }}</div>
-  <div class="info-item" *ngIf="fair.openingHours"><span class="label">{{ 'FAIR.OPENING_HOURS' | translate }}:</span> {{ fair.openingHours }}</div>
-  <div class="info-item" *ngIf="fair.type"><span class="label">{{ 'FAIR.TYPE' | translate }}:</span> {{ ('FAIR.TYPE_' + fair.type) | translate }}</div>
-  <div class="info-item" *ngIf="fair.responsible"><span class="label">{{ 'FAIR.RESPONSIBLE' | translate }}:</span> {{ fair.responsible }}</div>
-    <div class="info-item" *ngIf="fair.phone"><span class="label">{{ 'FAIR.PHONE' | translate }}:</span> {{ fair.phone }}</div>
-    <div class="info-item" *ngIf="fair.description"><span class="label">{{ 'FAIR.DESCRIPTION' | translate }}:</span> {{ fair.description }}</div>
-    <div class="info-item" *ngIf="fair.attractions"><span class="label">{{ 'FAIR.ATTRACTIONS' | translate }}:</span> {{ fair.attractions }}</div>
-    <button mat-button color="primary" [routerLink]="['/fair', fair.id]" class="detail-btn">
+    <h3 class="popup-title">{{ fair.name }}</h3>
+    <p class="popup-subtitle">{{ fair.schedule }} • {{ fair.openingHours }}</p>
+
+    <p class="popup-detail" *ngIf="fair.address">{{ fair.address }}</p>
+    <p class="popup-detail" *ngIf="fair.type">{{ ('FAIR.TYPE_' + fair.type) | translate }}</p>
+    <p class="popup-detail" *ngIf="fair.responsible">👤 {{ fair.responsible }}</p>
+    <p class="popup-detail" *ngIf="fair.phone">📞 {{ fair.phone }}</p>
+    <p class="popup-detail" *ngIf="fair.description">🛒 {{ fair.description }}</p>
+    <p class="popup-detail" *ngIf="fair.attractions">🎉 {{ fair.attractions }}</p>
+
+    <button mat-flat-button color="primary" class="detail-btn" [routerLink]="['/fair', fair.id]">
       {{ 'FAIR.DETAILS' | translate }}
     </button>
   </div>

@@ -9,13 +9,10 @@
     </mat-form-field>
     <div class="type-filter">
       <label>{{ 'FILTER_TYPE' | translate }}</label>
-      <mat-checkbox
-        *ngFor="let t of types"
-        [checked]="selectedTypes.includes(t)"
-        (change)="toggleType(t, $event.checked)"
-      >
-        <img [src]="iconUrl(t)" class="type-icon" />
+      <mat-checkbox *ngFor="let t of types" [checked]="selectedTypes.includes(t)" (change)="toggleType(t, $event.checked)">
+
         {{ ('FAIR.TYPE_' + t) | translate }}
+        <img [src]="iconUrl(t)" class="type-icon" />
       </mat-checkbox>
     </div>
   </div>

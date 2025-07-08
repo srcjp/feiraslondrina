@@ -10,7 +10,7 @@
 
 .map-filter {
   position: absolute;
-  top: 10px;
+  top: 0px;
   right: 10px;
   z-index: 400;
   background: #fff;
@@ -21,7 +21,7 @@
 .type-filter {
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: -15px;
   .mat-checkbox {
     margin-bottom: 4px;
     display: flex;
@@ -30,7 +30,8 @@
 }
 
 .type-icon {
-  width: 24px;
-  height: 24px;
-  margin: 0 4px;
+  width: 18px;
+  height: 30px;
+  margin: 0 2px;
+  margin-top: 5px;
 }

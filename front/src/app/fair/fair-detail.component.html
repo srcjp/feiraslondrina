@@ -1,24 +1,29 @@
 <div class="fair-detail" *ngIf="fair">
-  <button mat-raised-button color="primary" routerLink="/fair" class="close-btn">
+  <button mat-stroked-button color="primary" routerLink="/fair" class="close-btn">
     {{ 'COMMON.CLOSE' | translate }}
   </button>
+
   <mat-card class="fair-card">
-    <h2>{{ fair.name }}</h2>
-    <img *ngIf="fair.imagePath" [src]="fair.imagePath" class="detail-image" />
-    <div class="detail-info">
-      <div *ngIf="fair.address"><strong>{{ 'FAIR.ADDRESS' | translate }}:</strong> {{ fair.address }}</div>
-      <div *ngIf="fair.schedule"><strong>{{ 'FAIR.SCHEDULE' | translate }}:</strong> {{ fair.schedule }}</div>
-      <div *ngIf="fair.openingHours"><strong>{{ 'FAIR.OPENING_HOURS' | translate }}:</strong> {{ fair.openingHours }}</div>
-      <div *ngIf="fair.type"><strong>{{ 'FAIR.TYPE' | translate }}:</strong> {{ ('FAIR.TYPE_' + fair.type) | translate }}</div>
-      <div *ngIf="fair.socialMedia">
-        <strong>{{ 'FAIR.SOCIAL_MEDIA' | translate }}:</strong>
-        <a [href]="fair.socialMedia" target="_blank">{{ fair.socialMedia }}</a>
+    <div class="fair-content">
+      <img *ngIf="fair.imagePath" [src]="fair.imagePath" class="detail-image" />
+
+      <div class="detail-info">
+        <h2 class="fair-title">{{ fair.name }}</h2>
+
+        <p class="subtitle" *ngIf="fair.schedule || fair.openingHours">
+          {{ fair.schedule }} <span *ngIf="fair.schedule && fair.openingHours">•</span> {{ fair.openingHours }}
+        </p>
+
+        <p *ngIf="fair.address">📍 {{ fair.address }}</p>
+        <p *ngIf="fair.description">🛒 {{ fair.description }}</p>
+        <p *ngIf="fair.type">🏷️ {{ ('FAIR.TYPE_' + fair.type) | translate }}</p>
+        <p *ngIf="fair.responsible">👤 {{ fair.responsible }}</p>
+        <p *ngIf="fair.phone">📞 {{ formatPhone(fair.phone) }}</p>
+        <p *ngIf="fair.socialMedia">🔗 <a [href]="fair.socialMedia" target="_blank">{{ fair.socialMedia }}</a></p>
       </div>
-      <div *ngIf="fair.responsible"><strong>{{ 'FAIR.RESPONSIBLE' | translate }}:</strong> {{ fair.responsible }}</div>
-      <div *ngIf="fair.phone"><strong>{{ 'FAIR.PHONE' | translate }}:</strong> {{ fair.phone }}</div>
-      <div *ngIf="fair.description"><strong>{{ 'FAIR.DESCRIPTION' | translate }}:</strong> {{ fair.description }}</div>
     </div>
-    <div class="attractions" *ngIf="attractions.length; else noAttr">
+
+    <!-- <div class="attractions" *ngIf="attractions.length; else noAttr">
       <h3>{{ 'FAIR.ATTRACTIONS' | translate }}</h3>
       <table class="attractions-table">
         <thead>
@@ -39,13 +44,15 @@
         </tbody>
       </table>
     </div>
+
     <ng-template #noAttr>
       <p>{{ 'NO_ATTRACTIONS' | translate }}</p>
-    </ng-template>
-    <div class="actions">
+    </ng-template> -->
+
+    <!-- <div class="actions">
       <button mat-raised-button color="primary" [routerLink]="['/fair', fair.id, 'edit']">
         {{ 'EDIT' | translate }}
       </button>
-    </div>
+    </div> -->
   </mat-card>
 </div>

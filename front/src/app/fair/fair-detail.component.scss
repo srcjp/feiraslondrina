@@ -1,45 +1,142 @@
 .fair-detail {
-  padding: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .close-btn {
+  align-self: flex-start;
   margin-bottom: 16px;
+  font-size: 13px;
+  padding: 4px 12px;
 }
 
 .fair-card {
-  padding: 16px;
+  width: 100%;
+  max-width: 960px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fair-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .detail-image {
   width: 100%;
-  max-width: 400px;
-  margin: 16px 0;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .detail-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.fair-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.detail-info p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 2px 0;
+}
+
+.detail-info a {
+  color: #3b82f6;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.actions button {
+  font-size: 13px;
+  padding: 4px 16px;
+  border-radius: 12px;
 }
 
 .attractions {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .attractions-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 13px;
 }
 
 .attractions-table th,
 .attractions-table td {
-  padding: 4px 8px;
-}
-
-.attractions-table th {
+  padding: 6px 10px;
   text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
-.actions {
-  margin-top: 16px;
+/* Layout responsivo */
+@media (min-width: 768px) {
+  .fair-content {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .detail-image {
+    width: 40%;
+    height: auto;
+  }
+
+  .detail-info {
+    flex: 1;
+    padding-left: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fair-card {
+    padding: 16px;
+  }
+
+  .detail-info {
+    font-size: 13px;
+  }
+
+  .fair-title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .detail-image {
+    max-height: 180px;
+  }
 }
