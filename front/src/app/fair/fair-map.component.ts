@@ -35,7 +35,6 @@ import { FairPopupComponent } from "./fair-popup.component";
     MatCheckboxModule,
     MatButtonModule,
     TranslateModule,
-    FairPopupComponent,
   ],
   templateUrl: "./fair-map.component.html",
   styleUrls: ["./fair-map.component.scss"],

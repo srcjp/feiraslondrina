@@ -13,7 +13,6 @@
         *ngFor="let t of types"
         [checked]="selectedTypes.includes(t)"
         (change)="toggleType(t, $event.checked)"
-        [ngModelOptions]="{standalone: true}"
       >
         <img [src]="iconUrl(t)" class="type-icon" />
         {{ ('FAIR.TYPE_' + t) | translate }}
