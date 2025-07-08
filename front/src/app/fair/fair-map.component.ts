@@ -18,6 +18,7 @@ import { RouterModule, Router } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { FairPopupComponent } from "./fair-popup.component";
@@ -31,6 +32,7 @@ import { FairPopupComponent } from "./fair-popup.component";
     FormsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatButtonModule,
     TranslateModule,
     FairPopupComponent,
@@ -55,6 +57,9 @@ export class FairMapComponent implements OnInit {
     { value: "Sexta", label: "Sexta-feira" },
     { value: "Sábado", label: "Sábado" },
   ];
+
+  types = Object.values(FairType);
+  selectedTypes: FairType[] = [...this.types];
 
   constructor(
     private service: FairService,
@@ -86,6 +91,20 @@ export class FairMapComponent implements OnInit {
       popupAnchor: [0, -82],
       shadowUrl: 'assets/leaflet/marker-shadow.png',
     });
+  }
+
+  iconUrl(type: FairType): string {
+    switch (type) {
+      case FairType.FESTA_JUNINA:
+        return 'assets/leaflet/festajunina.png';
+      case FairType.PASTEL:
+        return 'assets/leaflet/pastel.png';
+      case FairType.FEIRA_DA_LUA:
+        return 'assets/leaflet/feiradalua.png';
+      case FairType.FEIRA_GENERICA:
+      default:
+        return 'assets/leaflet/feiragenerica.png';
+    }
   }
 
   get loggedIn(): boolean {
@@ -192,16 +211,25 @@ export class FairMapComponent implements OnInit {
   }
 
   applyFilter() {
-    if (!this.day) {
-      this.filtered = this.fairs;
-    } else {
-      const d = this.day.toLowerCase();
-      this.filtered = this.fairs.filter((f) =>
-        f.schedule?.toLowerCase().includes(d),
-      );
-    }
+    const d = this.day.toLowerCase();
+    this.filtered = this.fairs.filter((f) => {
+      const dayMatch = !this.day || f.schedule?.toLowerCase().includes(d);
+      const typeMatch = !f.type || this.selectedTypes.includes(f.type);
+      return dayMatch && typeMatch;
+    });
     this.buildCluster();
     this.updateClusters();
+  }
+
+  toggleType(type: FairType, checked: boolean) {
+    if (checked) {
+      if (!this.selectedTypes.includes(type)) {
+        this.selectedTypes.push(type);
+      }
+    } else {
+      this.selectedTypes = this.selectedTypes.filter((t) => t !== type);
+    }
+    this.applyFilter();
   }
 
   addFair() {

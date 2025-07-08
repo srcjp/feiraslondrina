@@ -17,3 +17,20 @@
   padding: 4px;
   border-radius: 4px;
 }
+
+.type-filter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  .mat-checkbox {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.type-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 4px;
+}
