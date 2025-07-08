@@ -18,6 +18,17 @@
   border-radius: 4px;
 }
 
+.filter-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 400;
+}
+
+.close-filter {
+  float: right;
+}
+
 .type-filter {
   display: flex;
   flex-direction: column;

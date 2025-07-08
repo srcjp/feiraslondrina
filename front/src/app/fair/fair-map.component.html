@@ -1,6 +1,17 @@
 <div class="map-container">
   <div id="map" class="map"></div>
-  <div class="map-filter">
+  <button
+    *ngIf="isMobile && !filtersVisible"
+    class="filter-toggle"
+    mat-fab
+    color="primary"
+    (click)="toggleFilters()">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+  <div class="map-filter" *ngIf="!isMobile || filtersVisible">
+    <button *ngIf="isMobile" mat-icon-button class="close-filter" (click)="toggleFilters()">
+      <mat-icon>close</mat-icon>
+    </button>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'FILTER_DAY' | translate }}</mat-label>
       <mat-select [(ngModel)]="day" (selectionChange)="applyFilter()">
