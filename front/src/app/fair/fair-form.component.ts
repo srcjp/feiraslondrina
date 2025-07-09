@@ -106,7 +106,9 @@ export class FairFormComponent implements OnInit {
         if (fair.imagePath) {
           this.imageUrl = fair.imagePath;
         }
-        this.attractions = attractions;
+        this.attractions = attractions.length
+          ? attractions
+          : fair.attractionList ?? [];
       });
     }
     this.initMap();
