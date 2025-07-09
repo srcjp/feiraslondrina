@@ -1,10 +1,25 @@
+# Etapa de build
 FROM maven:3.8.5-openjdk-17 AS build
+
 WORKDIR /app
+
+# Copia o código-fonte e evita problemas de cache
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
 COPY . .
+
+# Desabilita uso de proxy e constrói o app
+ENV MAVEN_OPTS=""
 RUN mvn clean package -DskipTests
 
+# Etapa final da imagem com JDK mais leve
 FROM openjdk:17.0.1-jdk-slim
+
 WORKDIR /app
-COPY --from=build /app/target/LoginBoilerplate-0.0.1-SNAPSHOT.jar app.jar
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+CMD ["java", "-jar", "app.jar"]
