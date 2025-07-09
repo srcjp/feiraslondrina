@@ -1,6 +1,7 @@
 <div class="fair-detail" *ngIf="fair">
-  <button mat-stroked-button color="primary" routerLink="/fair" class="close-btn">
-    {{ 'COMMON.CLOSE' | translate }}
+  <button mat-stroked-button color="primary" (click)="goBack()" class="close-btn">
+    <mat-icon>arrow_back</mat-icon>
+    {{ 'COMMON.BACK' | translate }}
   </button>
 
   <mat-card class="fair-card">

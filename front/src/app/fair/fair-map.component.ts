@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ViewContainerRef,
   EnvironmentInjector,
 } from "@angular/core";
@@ -15,6 +16,7 @@ L.Icon.Default.mergeOptions({
 });
 import { FairService, Fair, FairType } from "./fair.service";
 import { RouterModule, Router } from "@angular/router";
+import { MapStateService } from "./map-state.service";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -41,7 +43,7 @@ import { FairPopupComponent } from "./fair-popup.component";
   templateUrl: "./fair-map.component.html",
   styleUrls: ["./fair-map.component.scss"],
 })
-export class FairMapComponent implements OnInit {
+export class FairMapComponent implements OnInit, OnDestroy {
   private map?: L.Map;
   private cluster?: any;
   private clusterLayer = L.layerGroup();
@@ -71,6 +73,7 @@ export class FairMapComponent implements OnInit {
     private router: Router,
     private vcr: ViewContainerRef,
     private injector: EnvironmentInjector,
+    private mapState: MapStateService,
   ) {}
 
   private getIcon(type?: FairType): L.Icon {
@@ -127,49 +130,37 @@ export class FairMapComponent implements OnInit {
   }
 
   private initMap() {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const coords: L.LatLngTuple = [
-          pos.coords.latitude,
-          pos.coords.longitude,
-        ];
-        this.map = L.map("map").setView(coords, 13);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-        }).addTo(this.map);
-        this.map.addLayer(this.clusterLayer);
-        this.buildCluster();
-        this.updateClusters();
-        this.map.on("moveend zoomend", () => this.updateClusters());
-        this.map.on("moveend", () => {
-          if (this.pendingFairId !== undefined) {
-            const id = this.pendingFairId;
-            this.pendingFairId = undefined;
-            const m = this.markerMap.get(id);
-            m?.openPopup();
-          }
-        });
-      },
-      () => {
-        const coords: L.LatLngTuple = [-23.31, -51.17];
-        this.map = L.map("map").setView(coords, 13);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-        }).addTo(this.map);
-        this.map.addLayer(this.clusterLayer);
-        this.buildCluster();
-        this.updateClusters();
-        this.map.on("moveend zoomend", () => this.updateClusters());
-        this.map.on("moveend", () => {
-          if (this.pendingFairId !== undefined) {
-            const id = this.pendingFairId;
-            this.pendingFairId = undefined;
-            const m = this.markerMap.get(id);
-            m?.openPopup();
-          }
-        });
-      },
-    );
+    const setupMap = (coords: L.LatLngTuple, zoom = 13) => {
+      this.map = L.map("map").setView(coords, zoom);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+      }).addTo(this.map);
+      this.map.addLayer(this.clusterLayer);
+      this.buildCluster();
+      this.updateClusters();
+      this.map.on("moveend zoomend", () => this.updateClusters());
+      this.map.on("moveend", () => {
+        if (this.pendingFairId !== undefined) {
+          const id = this.pendingFairId;
+          this.pendingFairId = undefined;
+          const m = this.markerMap.get(id);
+          m?.openPopup();
+        }
+      });
+    };
+
+    if (this.mapState.lat !== undefined && this.mapState.lng !== undefined && this.mapState.zoom !== undefined) {
+      setupMap([this.mapState.lat, this.mapState.lng], this.mapState.zoom);
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setupMap([pos.coords.latitude, pos.coords.longitude], 13);
+        },
+        () => {
+          setupMap([-23.31, -51.17], 13);
+        }
+      );
+    }
   }
 
   private buildCluster() {
@@ -273,5 +264,12 @@ export class FairMapComponent implements OnInit {
 
   addFair() {
     this.router.navigate(["/fair/new"]);
+  }
+
+  ngOnDestroy() {
+    if (this.map) {
+      const center = this.map.getCenter();
+      this.mapState.setState(center.lat, center.lng, this.map.getZoom());
+    }
   }
 }

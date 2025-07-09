@@ -82,7 +82,8 @@
         "SUCCESS_MESSAGE": "Password reset successfully!"
       },
       "COMMON": {
-        "CLOSE": "Close"
+        "CLOSE": "Close",
+        "BACK": "Back"
       },
       "INTERNATIONALIZATION": {
         "PORTUGUESE": "Portuguese",
@@ -121,6 +122,8 @@
       "BACK_TO_MAP": "Back to map",
       "CONTRIBUTE": {
         "TITLE": "Contribute",
+        "ABOUT": "About",
+        "DEVELOPED_BY": "Developed by jpfurlan",
         "TEXT": "Help keep the project, servers and domain running.",
         "PIX": "Pix Key",
         "BITCOIN": "Bitcoin Address",
@@ -130,5 +133,4 @@
         "TITLE": "How to use"
       }
 
-  }
-  
+  }  
