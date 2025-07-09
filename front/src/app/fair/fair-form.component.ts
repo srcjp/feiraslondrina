@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskDirective } from 'ngx-mask';
 import { AttractionService, Attraction } from './attraction.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-fair-form',
