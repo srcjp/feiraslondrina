@@ -100,15 +100,13 @@ export class FairFormComponent implements OnInit {
         attractions: this.attractionService.listByFair(this.id)
       }).subscribe(({ fair, attractions }) => {
         this.form.patchValue(fair);
-        if (fair.latitude && fair.longitude) {
-          this.setMarker([fair.latitude, fair.longitude]);
-        }
         if (fair.imagePath) {
           this.imageUrl = fair.imagePath;
         }
         this.attractions = attractions.length
           ? attractions
           : fair.attractionList ?? [];
+        this.setMarkerIfValid();
       });
     }
     this.initMap();
@@ -131,7 +129,11 @@ export class FairFormComponent implements OnInit {
   }
 
   private setMarkerIfValid() {
-    if (this.form.value.latitude && this.form.value.longitude) {
+    if (
+      this.map &&
+      this.form.value.latitude &&
+      this.form.value.longitude
+    ) {
       this.setMarker([this.form.value.latitude, this.form.value.longitude]);
     }
   }
