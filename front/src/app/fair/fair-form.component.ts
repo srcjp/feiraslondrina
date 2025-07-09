@@ -21,7 +21,6 @@ import { MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskDirective } from 'ngx-mask';
 import { AttractionService, Attraction } from './attraction.service';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-fair-form',
@@ -95,10 +94,7 @@ export class FairFormComponent implements OnInit {
     const paramId = this.id ?? this.route.snapshot.paramMap.get('id');
     if (paramId) {
       this.id = +paramId;
-      forkJoin({
-        fair: this.service.get(this.id),
-        attractions: this.attractionService.listByFair(this.id)
-      }).subscribe(({ fair, attractions }) => {
+      this.service.get(this.id).subscribe(fair => {
         this.form.patchValue(fair);
         if (fair.latitude && fair.longitude) {
           this.setMarker([fair.latitude, fair.longitude]);
@@ -106,9 +102,7 @@ export class FairFormComponent implements OnInit {
         if (fair.imagePath) {
           this.imageUrl = fair.imagePath;
         }
-        this.attractions = attractions.length
-          ? attractions
-          : fair.attractionList ?? [];
+        this.attractions = fair.attractionList ?? [];
       });
     }
     this.initMap();
