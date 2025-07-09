@@ -1,3 +1,16 @@
-.content p {
-  margin-bottom: 8px;
+.content {
+  p {
+    margin-bottom: 8px;
+  }
+
+  .info {
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+  }
+
+  .about-title,
+  .about-link {
+    text-align: center;
+  }
 }

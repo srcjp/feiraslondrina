@@ -127,7 +127,9 @@
     "TEXT": "Help keep the project, servers and domain running.",
     "PIX": "Pix Key",
     "BITCOIN": "Bitcoin Address",
-    "LIGHTNING": "Lightning Address"
+    "LIGHTNING": "Lightning Address",
+    "MISSING_FAIR": "Know any fair not on the map? Send the information to",
+    "REPORT_BUG": "Found a bug? Send it to"
   },
   "HOW_TO_USE": {
     "TITLE": "How to use"
