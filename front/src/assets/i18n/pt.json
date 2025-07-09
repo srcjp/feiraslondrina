@@ -134,7 +134,9 @@
     "TEXT": "Ajude a manter o projeto, servidores, domínio e manutenção.",
     "PIX": "Chave Pix",
     "BITCOIN": "Endereço Bitcoin",
-    "LIGHTNING": "Endereço Lightning"
+    "LIGHTNING": "Endereço Lightning",
+    "MISSING_FAIR": "Conhece alguma feira que não está no mapa? Envie as informações para",
+    "REPORT_BUG": "Encontrou algum bug? Envie para"
   },
   "HOW_TO_USE": {
     "TITLE": "Como usar"
