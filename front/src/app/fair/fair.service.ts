@@ -69,7 +69,8 @@ export class FairService {
   private mapImages<T extends Fair | Fair[]>(data: T): T {
     const mapFn = (f: Fair) => {
       if (f.imagePath) {
-        f.imagePath = this.filesBase + f.imagePath;
+        const fileName = f.imagePath.split(/[\\/]/).pop();
+        f.imagePath = this.filesBase + 'file/' + fileName;
       }
       return f;
     };
