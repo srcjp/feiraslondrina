@@ -89,7 +89,8 @@
       "SUCCESS_MESSAGE": "Senha redefinida com sucesso!"
     },
     "COMMON": {
-      "CLOSE": "Fechar"
+      "CLOSE": "Fechar",
+      "BACK": "Voltar"
     },
     "INTERNATIONALIZATION": {
       "PORTUGUESE": "Português",
@@ -128,6 +129,8 @@
     "BACK_TO_MAP": "Voltar para o mapa",
     "CONTRIBUTE": {
       "TITLE": "Contribua",
+      "ABOUT": "Sobre",
+      "DEVELOPED_BY": "Desenvolvido por jpfurlan",
       "TEXT": "Ajude a manter o projeto, servidores, domínio e manutenção.",
       "PIX": "Chave Pix",
       "BITCOIN": "Endereço Bitcoin",
@@ -136,5 +139,4 @@
     "HOW_TO_USE": {
       "TITLE": "Como usar"
     }
-  }
-  
+  }  

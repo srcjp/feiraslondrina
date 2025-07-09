@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { Location } from '@angular/common';
 import { FairService, Fair } from './fair.service';
 import { AttractionService, Attraction } from './attraction.service';
 
 @Component({
   selector: 'app-fair-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatCardModule, TranslateModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, MatCardModule, TranslateModule],
   templateUrl: './fair-detail.component.html',
   styleUrls: ['./fair-detail.component.scss']
 })
@@ -21,7 +23,8 @@ export class FairDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fairService: FairService,
-    private attractionService: AttractionService
+    private attractionService: AttractionService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -41,5 +44,9 @@ export class FairDetailComponent implements OnInit {
     }
     return phone;
   }
-  
+
+  goBack() {
+    this.location.back();
+  }
+
 }
