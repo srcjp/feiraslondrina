@@ -163,15 +163,23 @@ export class FairFormComponent implements OnInit {
   }
 
   addAttraction() {
-    this.attractions.push({ name: '', specialty: '', socialMedia: '' });
+    this.attractions = [
+      ...this.attractions,
+      { name: '', specialty: '', socialMedia: '' }
+    ];
   }
 
   removeAttraction(index: number) {
+    if (index < 0 || index >= this.attractions.length) {
+      return;
+    }
     const a = this.attractions[index];
+    const afterRemove = () =>
+      (this.attractions = this.attractions.filter((_, i) => i !== index));
     if (a.id) {
-      this.attractionService.delete(a.id).subscribe(() => this.attractions.splice(index, 1));
+      this.attractionService.delete(a.id).subscribe(afterRemove);
     } else {
-      this.attractions.splice(index, 1);
+      afterRemove();
     }
   }
 
