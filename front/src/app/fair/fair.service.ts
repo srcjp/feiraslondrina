@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environmet/environment';
 import { Observable, map } from 'rxjs';
+import { Attraction } from './attraction.service';
 
 export enum FairType {
   FESTA_JUNINA = 'FESTA_JUNINA',
@@ -26,6 +27,7 @@ export interface Fair {
   type?: FairType;
   imagePath?: string;
   createdAt?: string;
+  attractionList?: Attraction[];
 }
 
 @Injectable({ providedIn: 'root' })
