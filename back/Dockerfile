@@ -11,16 +11,22 @@ COPY pom.xml .
 COPY maven-settings.xml /usr/share/maven/conf/settings.xml
 
 # Baixa as dependências do Maven, usando o settings.xml personalizado
-# O argumento '-s /usr/share/maven/conf/settings.xml' força o Maven a usar este arquivo.
-RUN mvn dependency:go-offline -B -s /usr/share/maven/conf/settings.xml
+# Adiciona propriedades para garantir que nenhum proxy seja usado para NENHUM host.
+RUN mvn dependency:go-offline -B \
+    -s /usr/share/maven/conf/settings.xml \
+    -Dhttp.nonProxyHosts="*" \
+    -Dhttps.nonProxyHosts="*"
 
 # Copia o restante do código-fonte
 COPY . .
 
 # Desabilita uso de proxy e constrói o app
-# O argumento '-s /usr/share/maven/conf/settings.xml' é usado novamente para o comando de build.
+# As mesmas propriedades de não-proxy são aplicadas aqui também.
 ENV MAVEN_OPTS=""
-RUN mvn clean package -DskipTests -s /usr/share/maven/conf/settings.xml
+RUN mvn clean package -DskipTests \
+    -s /usr/share/maven/conf/settings.xml \
+    -Dhttp.nonProxyHosts="*" \
+    -Dhttps.nonProxyHosts="*"
 
 # Etapa final da imagem com JDK mais leve
 FROM openjdk:17.0.1-jdk-slim
