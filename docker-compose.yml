@@ -33,6 +33,7 @@ services:
       - 'VIRTUAL_HOST=${BACK_DOMAIN}'
       - 'LETSENCRYPT_HOST=${BACK_DOMAIN}'
       - 'LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}'
+      - 'VIRTUAL_PORT=8080'
 
   frontend:
     build:
@@ -48,6 +49,7 @@ services:
     labels:
       - 'com.github.nginx-proxy.nginx=nginx-proxy'
       - 'VIRTUAL_HOST=${FRONT_DOMAIN}'
+      - 'VIRTUAL_PORT=80'
       - 'LETSENCRYPT_HOST=${FRONT_DOMAIN}'
       - 'LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}'
 
