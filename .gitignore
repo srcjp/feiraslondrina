@@ -12,3 +12,9 @@ target/
 
 # Environment
 .env
+
+# SSL certificates
+nginx/certbot/www/
+nginx/certbot/conf/*
+!nginx/certbot/conf/options-ssl-nginx.conf
+!nginx/certbot/conf/ssl-dhparams.pem
