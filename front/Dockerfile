@@ -11,6 +11,7 @@ RUN sed -i "s@https://api.feiraslondrina.com.br@https://${BACK_DOMAIN}@" src/env
 
 # Runtime stage
 FROM nginx:stable-alpine
-COPY --from=build /app/dist/cadeopet /usr/share/nginx/html
+COPY --from=build /app/dist/cadeopet/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
