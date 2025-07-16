@@ -28,13 +28,16 @@ RUN mvn clean package -DskipTests \
     -Dhttp.nonProxyHosts="*" \
     -Dhttps.nonProxyHosts="*"
 
+# Renomeia o JAR gerado para um nome padrao para facilitar a copia na etapa final
+RUN mv target/*.jar app.jar
+
 # Etapa final da imagem com JDK mais leve
 FROM openjdk:17.0.1-jdk-slim
 
 WORKDIR /app
 
 # Copia o JAR construído da etapa de build para a imagem final
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/app.jar app.jar
 
 # Expõe a porta que o aplicativo usará
 EXPOSE 8080
