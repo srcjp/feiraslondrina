@@ -13,11 +13,14 @@ Este repositório contém o front-end em Angular e o back-end em Spring Boot de 
    docker compose run --rm certbot \
      sh -c "certbot certonly --webroot \
      --webroot-path=/var/www/certbot \
-     --email "$LETSENCRYPT_EMAIL" --agree-tos --no-eff-email \
+     --email \"$LETSENCRYPT_EMAIL\" --agree-tos --no-eff-email \
      -d feiraslondrina.com.br -d www.feiraslondrina.com.br \
      -d api.feiraslondrina.com.br"
    ```
-> **Importante**: Execute o passo acima antes de iniciar os containers. Sem os certificados o servico `front` nao conseguira iniciar.
+  > **Importante**: Execute o passo acima antes de iniciar os containers. Sem os certificados o servico `front` nao conseguira iniciar.
+  Se nenhuma pasta `nginx/certbot/conf/live` for criada, o Certbot nao conseguiu validar
+  seus dominios. Verifique a saida do comando e certifique-se de que os registros DNS
+  apontam para este servidor e que as portas **80** e **443** estao liberadas.
 3. Inicie os serviços normalmente:
    ```bash
    docker compose up --build
