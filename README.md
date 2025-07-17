@@ -10,11 +10,12 @@ Este repositório contém o front-end em Angular e o back-end em Spring Boot de 
 1. Copie o arquivo `.env.example` para `.env` e defina `LETSENCRYPT_EMAIL` com seu e-mail.
 2. Para gerar os certificados SSL execute:
    ```bash
-   docker compose run --rm certbot certonly --webroot \
+   docker compose run --rm certbot \
+     sh -c "certbot certonly --webroot \
      --webroot-path=/var/www/certbot \
      --email "$LETSENCRYPT_EMAIL" --agree-tos --no-eff-email \
      -d feiraslondrina.com.br -d www.feiraslondrina.com.br \
-     -d api.feiraslondrina.com.br
+     -d api.feiraslondrina.com.br"
    ```
 > **Importante**: Execute o passo acima antes de iniciar os containers. Sem os certificados o servico `front` nao conseguira iniciar.
 3. Inicie os serviços normalmente:
